@@ -1,0 +1,239 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Aryan D Haritsa — AI/ML Researcher & Engineer">
+
+  <!-- ============ HERO — Full-width, editorial ============ -->
+  <section class="min-h-[85vh] flex items-center relative overflow-hidden">
+    <!-- Subtle grid pattern -->
+    <div class="absolute inset-0 opacity-[0.02]">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="40" y2="0" stroke="#1A365D" stroke-width="0.3"/>
+            <line x1="0" y1="0" x2="0" y2="40" stroke="#1A365D" stroke-width="0.3"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)"/>
+      </svg>
+    </div>
+
+    <div class="container-wide relative py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Left: Name + Tagline -->
+        <div class="lg:col-span-7">
+          <p class="reveal section-label mb-4">AI / ML Researcher & Engineer</p>
+          <h1 class="reveal text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-[0.95] mb-6" style="font-family: var(--font-serif); color: var(--color-accent);">
+            Aryan D<br/>Haritsa
+          </h1>
+          <p class="reveal text-lg md:text-xl text-[var(--color-muted)] leading-relaxed max-w-[520px] mb-8">
+            Researching mechanistic interpretability, alternative encoder architectures for dense retrieval, and the limits of inference-time reasoning.
+          </p>
+          <div class="reveal flex flex-wrap gap-3">
+            <a href="/projects/ramanujan" class="px-6 py-3 bg-[var(--color-accent)] text-white text-sm font-medium rounded-full hover:bg-[var(--color-accent-hover)] transition-all duration-300 shadow-sm hover:shadow-lg magnetic">
+              AIMO3: 36/50 →
+            </a>
+            <a href="/research" class="px-6 py-3 border border-[var(--color-accent)]/30 text-[var(--color-accent)] text-sm font-medium rounded-full hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-soft)] transition-all duration-300 magnetic">
+              Research
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Quick stats -->
+        <div class="lg:col-span-5">
+          <div class="reveal-right grid grid-cols-2 gap-4">
+            <div class="stat-block card">
+              <span class="stat-number">36/50</span>
+              <span class="stat-label">AIMO Prize 3</span>
+            </div>
+            <div class="stat-block card">
+              <span class="stat-number">3</span>
+              <span class="stat-label">Weeks to Build</span>
+            </div>
+            <div class="stat-block card">
+              <span class="stat-number">8.05</span>
+              <span class="stat-label">CGPA</span>
+            </div>
+            <div class="stat-block card">
+              <span class="stat-number">7th</span>
+              <span class="stat-label">Hackverse 2025</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scrolling indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--color-faint)] text-xs reveal">
+      <span>Scroll</span>
+      <div class="w-px h-8 bg-gradient-to-b from-[var(--color-faint)] to-transparent"></div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT PREVIEW — Full-width band ============ -->
+  <section class="bg-[var(--color-dark)] text-white py-20 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.06]">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="0.6" fill="white"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dots)"/>
+      </svg>
+    </div>
+    <div class="container relative">
+      <p class="reveal text-lg md:text-xl leading-relaxed text-white/80">
+        I build systems that push the boundary between model capability and reliable deployment — from inference-time math reasoning pipelines to interpretability tooling for understanding what models actually compute.
+        <span class="text-[var(--color-gold)] font-medium">My work sits at the intersection of engineering under constraint and curiosity about the mechanisms beneath neural computation.</span>
+      </p>
+      <a href="/about" class="reveal inline-block mt-6 text-sm text-white/60 hover:text-[var(--color-gold)] transition-colors duration-300 font-medium">Read more about me →</a>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED RESEARCH ============ -->
+  <section class="py-20">
+    <div class="container-wide">
+      <div class="reveal mb-12">
+        <p class="section-label mb-2">What I'm Working On</p>
+        <h2 class="text-3xl md:text-4xl font-semibold" style="font-family: var(--font-serif); color: var(--color-accent);">Research</h2>
+      </div>
+
+      <div class="stagger grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Ramanujan -->
+        <a href="/projects/ramanujan" class="reveal card group">
+          <div class="accent-bar"></div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="pill pill-gold">36/50 · Solo</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2 group-hover:text-[var(--color-gold)] transition-colors" style="font-family: var(--font-serif);">Project Ramanujan</h3>
+            <p class="text-sm text-[var(--color-muted)] mb-4">AIMO Prize 3 on Kaggle. Built the full GPT-OSS-120B inference stack in 3 weeks. Beat the previous year's winning score.</p>
+            <div class="flex gap-1.5 flex-wrap">
+              <span class="pill pill-accent">GPT-OSS-120B</span>
+              <span class="pill pill-accent">vLLM</span>
+              <span class="pill pill-accent">Harmony</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Mesa-Probe -->
+        <a href="/research" class="reveal card group">
+          <div class="h-[3px] bg-gradient-to-r from-[#1A365D] via-[#2D5AA0] to-[#4A90D9]"></div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="pill pill-green">Active</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2 group-hover:text-[var(--color-gold)] transition-colors" style="font-family: var(--font-serif);">Mesa-Optimization Probe</h3>
+            <p class="text-sm text-[var(--color-muted)] mb-4">Do small transformers implement gradient descent internally? Using TransformerLens and activation patching.</p>
+            <div class="flex gap-1.5 flex-wrap">
+              <span class="pill pill-accent">PyTorch</span>
+              <span class="pill pill-accent">TransformerLens</span>
+              <span class="pill pill-accent">MI</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Encoder Archaeology -->
+        <a href="/research" class="reveal card group">
+          <div class="h-[3px] bg-gradient-to-r from-[#2D5AA0] via-[#4A90D9] to-[#7AB8F5]"></div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="pill pill-green">Active</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2 group-hover:text-[var(--color-gold)] transition-colors" style="font-family: var(--font-serif);">Encoder Archaeology</h3>
+            <p class="text-sm text-[var(--color-muted)] mb-4">Transformer vs SSM vs RNN encoders for dense retrieval. Mapping the latency-accuracy Pareto frontier.</p>
+            <div class="flex gap-1.5 flex-wrap">
+              <span class="pill pill-accent">BEIR</span>
+              <span class="pill pill-accent">Mamba</span>
+              <span class="pill pill-accent">Retrieval</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS — Asymmetric layout ============ -->
+  <section class="py-16 bg-[var(--color-surface)]">
+    <div class="container-wide">
+      <div class="reveal mb-12">
+        <p class="section-label mb-2">Engineering & Competitions</p>
+        <h2 class="text-3xl md:text-4xl font-semibold" style="font-family: var(--font-serif); color: var(--color-accent);">Projects</h2>
+      </div>
+
+      <div class="stagger grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a href="/projects/titan" class="reveal card-flat group">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-[var(--color-accent)]/10 to-[var(--color-gold)]/10 flex items-center justify-center flex-shrink-0">
+              <span class="text-[var(--color-accent)] text-xl font-bold" style="font-family: var(--font-serif);">T</span>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-accent)] transition-colors">TITAN</h3>
+              <p class="text-xs text-[var(--color-faint)] mb-1">KYC + ZK Proofs + AML &middot; Paper → SeCrypt 2026</p>
+              <p class="text-sm text-[var(--color-muted)]">Zero-knowledge identity verification with AI forensics and graph-based fraud detection.</p>
+            </div>
+          </div>
+        </a>
+
+        <a href="/projects/arc-agi" class="reveal card-flat group">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-[var(--color-accent)]/10 to-[var(--color-gold)]/10 flex items-center justify-center flex-shrink-0">
+              <span class="text-[var(--color-accent)] text-xl font-bold" style="font-family: var(--font-serif);">A</span>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-accent)] transition-colors">
+                ARC AGI 3
+                <span class="pill pill-green ml-2">Active</span>
+              </h3>
+              <p class="text-sm text-[var(--color-muted)]">Abstract reasoning competition — testing the frontier of AI generalization.</p>
+            </div>
+          </div>
+        </a>
+
+        <a href="/projects/waysafe" class="reveal card-flat group">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-[var(--color-accent)]/10 to-[var(--color-gold)]/10 flex items-center justify-center flex-shrink-0">
+              <span class="text-[var(--color-accent)] text-xl font-bold" style="font-family: var(--font-serif);">W</span>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-accent)] transition-colors">WaySafe</h3>
+              <p class="text-xs text-[var(--color-faint)] mb-1">Hackverse 2025 · MIT Bangalore · 7th Place</p>
+              <p class="text-sm text-[var(--color-muted)]">Safety-weighted route optimization for tourists in unfamiliar cities.</p>
+            </div>
+          </div>
+        </a>
+
+        <a href="/projects/credicrew" class="reveal card-flat group">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-[var(--color-accent)]/10 to-[var(--color-gold)]/10 flex items-center justify-center flex-shrink-0">
+              <span class="text-[var(--color-accent)] text-xl font-bold" style="font-family: var(--font-serif);">C</span>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-accent)] transition-colors">CrediCrew</h3>
+              <p class="text-sm text-[var(--color-muted)]">Semantic resume-JD matching with FAISS retrieval and cross-encoder re-ranking.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="mt-8 reveal">
+        <a href="/projects" class="text-sm text-[var(--color-accent)] font-medium hover:text-[var(--color-gold)] transition-colors duration-300">View all projects →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NOW — Accent band ============ -->
+  <section class="py-14">
+    <div class="container">
+      <div class="reveal-scale bg-gradient-to-br from-[var(--color-accent-soft)] to-[var(--color-gold-soft)]/40 rounded-2xl p-8 border border-[var(--color-rule)]">
+        <p class="section-label mb-3">Now</p>
+        <p class="text-[var(--color-ink)] leading-relaxed">
+          Building Project Rick at Nagravision Kudelski (Jan–May 2026). Scaffolding two parallel research projects — mesa-optimization probe and encoder architecture comparison. Competing in ARC AGI 3 on Kaggle. Applied to MSR India undergraduate research internship for 2026.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</Base>

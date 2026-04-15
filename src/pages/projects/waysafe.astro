@@ -1,0 +1,150 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="WaySafe — Real-Time Safety-Aware Navigation">
+  <section class="max-w-[780px] mx-auto px-6 py-20">
+
+    <!-- Back link -->
+    <a href="/projects" class="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors mb-12 group">
+      <span class="group-hover:-translate-x-1 transition-transform">&larr;</span>
+      Back to Projects
+    </a>
+
+    <!-- Header -->
+    <div class="reveal mb-16">
+      <p class="text-sm uppercase tracking-widest text-amber-400 mb-3">Hackathon &middot; Safety &middot; Navigation</p>
+      <h1 class="text-4xl md:text-5xl font-semibold tracking-tight mb-5" style="font-family: var(--font-serif); color: var(--color-accent);">WaySafe</h1>
+      <p class="text-lg text-neutral-400">
+        Real-time safety-weighted routing for unfamiliar cities
+      </p>
+      <div class="flex items-center gap-3 mt-4">
+        <span class="inline-block px-3 py-1 text-xs rounded-full bg-amber-900/40 text-amber-400 border border-amber-800">
+          7th Place &mdash; Hackverse 2025
+        </span>
+        <span class="text-sm text-neutral-500">MIT Bangalore &middot; September 2025</span>
+      </div>
+    </div>
+
+    <!-- Narrative -->
+    <div class="narrative reveal mb-14">
+      <p>
+        Thirty-six hours. That is all you get at a hackathon, and it changes how you
+        think about building. There is no time for architecture astronautics. No time
+        for premature abstraction. You identify the core problem, build the smallest
+        thing that solves it, and fight for every minute of polish after that.
+      </p>
+      <p class="mt-4">
+        The problem we picked: tourists in unfamiliar cities navigate blind. Google Maps
+        optimizes for distance and traffic. It does not know &mdash; or does not surface &mdash;
+        that a particular shortcut runs through an area with elevated crime at night, or
+        that a street festival has packed a normally-quiet road with ten thousand people,
+        or that a flash flood warning is active for a low-lying route.
+      </p>
+      <p class="mt-4">
+        WaySafe fills that gap. It aggregates crime statistics, real-time crowd density
+        estimates, weather hazard alerts, and local safety advisories into a unified
+        scoring layer, then computes routes weighted by safety &mdash; not just distance.
+      </p>
+    </div>
+
+    <!-- Pull quote -->
+    <div class="pull-quote reveal-right mb-14">
+      <blockquote>
+        "The time pressure forced brutal prioritization. We built the core routing
+        algorithm and safety scoring engine first, then layered the UI on top. If the
+        math is right, the interface can be rough. If the math is wrong, no amount of
+        polish saves you."
+      </blockquote>
+    </div>
+
+    <!-- How it works -->
+    <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-8 reveal" style="font-family: var(--font-serif);">How It Works</h2>
+
+    <div class="space-y-6 mb-14">
+      <div class="shimmer-border card-lift p-6 rounded-xl reveal-left">
+        <h3 class="text-lg font-semibold text-amber-400 mb-2">Data Aggregation</h3>
+        <p class="text-neutral-300 text-sm leading-relaxed">
+          Multiple data streams feed the scoring engine: historical crime data
+          (geocoded and time-bucketed), crowd density estimates from anonymized mobile
+          signals, weather service APIs for hazard warnings, and manually curated local
+          advisories. Each source has different update frequencies and reliability
+          characteristics &mdash; the aggregator handles normalization and staleness.
+        </p>
+      </div>
+
+      <div class="shimmer-border card-lift p-6 rounded-xl reveal">
+        <h3 class="text-lg font-semibold text-amber-400 mb-2">Safety Scoring</h3>
+        <p class="text-neutral-300 text-sm leading-relaxed">
+          Every road segment gets a composite safety score that varies by time of day.
+          A well-lit commercial street at 2pm scores differently than the same street
+          at 2am. The scoring function is a weighted combination of the data streams,
+          with weights tunable per user preference &mdash; some travelers prioritize
+          avoiding crowds, others prioritize avoiding isolated areas.
+        </p>
+      </div>
+
+      <div class="shimmer-border card-lift p-6 rounded-xl reveal-right">
+        <h3 class="text-lg font-semibold text-amber-400 mb-2">Route Optimization</h3>
+        <p class="text-neutral-300 text-sm leading-relaxed">
+          Modified Dijkstra with a multi-objective cost function. The user chooses a
+          safety-distance tradeoff on a slider. At one extreme, you get the shortest
+          path regardless of safety. At the other, you get the safest path regardless
+          of distance. Most users land somewhere in the middle, and the algorithm
+          surfaces the Pareto-optimal trade-off curve.
+        </p>
+      </div>
+    </div>
+
+    <!-- Architecture -->
+    <div class="reveal mb-14">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-6" style="font-family: var(--font-serif);">System Flow</h2>
+      <div class="bg-neutral-900/60 border border-neutral-700 rounded-xl p-6 font-mono text-xs md:text-sm text-neutral-300 overflow-x-auto leading-relaxed">
+        <pre class="whitespace-pre">
+  Crime Data API ----+
+                     |
+  Crowd Density  ----+---> Aggregator ---> Safety Score
+                     |       Engine         per Segment
+  Weather Hazards ---+         |
+                     |         v
+  Local Advisories --+   Route Optimizer
+                        (Modified Dijkstra)
+                              |
+                              v
+                      +---------------+
+                      | Map UI Layer  |
+                      | Safe / Risky  |
+                      | color-coded   |
+                      +---------------+
+        </pre>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stat-block reveal mb-14">
+      <div>
+        <span class="stat-number">7th</span>
+        <span class="stat-label">Place at Hackverse 2025</span>
+      </div>
+      <div>
+        <span class="stat-number">36h</span>
+        <span class="stat-label">Build Time</span>
+      </div>
+      <div>
+        <span class="stat-number">4</span>
+        <span class="stat-label">Data Streams Fused</span>
+      </div>
+    </div>
+
+    <!-- Tech -->
+    <div class="reveal">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-4" style="font-family: var(--font-serif);">Stack</h2>
+      <div class="flex flex-wrap gap-2">
+        {['Python', 'FastAPI', 'React', 'Leaflet.js', 'PostgreSQL', 'PostGIS', 'REST APIs'].map(t => (
+          <span class="px-3 py-1 text-xs rounded-full border border-neutral-700 text-neutral-300">{t}</span>
+        ))}
+      </div>
+    </div>
+
+  </section>
+</Base>

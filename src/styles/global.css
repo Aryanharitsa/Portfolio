@@ -1,0 +1,323 @@
+@import "tailwindcss";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource-variable/source-serif-4";
+
+@theme {
+  --color-bg: #FAFAF9;
+  --color-ink: #1A1A1A;
+  --color-muted: #6B6B6B;
+  --color-faint: #999999;
+  --color-accent: #1A365D;
+  --color-accent-soft: #EDF2F8;
+  --color-accent-hover: #2A4A7F;
+  --color-rule: #E8E8E8;
+  --color-gold: #C49B2A;
+  --color-gold-soft: #FBF5E6;
+  --color-warm: #8B7355;
+  --color-dark: #0D1B2A;
+  --color-surface: #FFFFFF;
+
+  --font-serif: 'Source Serif 4 Variable', 'Cambria', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background-color: var(--color-bg);
+  line-height: 1.7;
+  overflow-x: hidden;
+  font-size: 15px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  color: var(--color-accent);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+::selection {
+  background-color: var(--color-gold);
+  color: white;
+}
+
+/* ===========================
+   LAYOUT SYSTEM
+   Full-width with constrained content
+   =========================== */
+
+.container-wide { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+.container { max-width: 780px; margin: 0 auto; padding: 0 2rem; }
+.container-narrow { max-width: 640px; margin: 0 auto; padding: 0 2rem; }
+
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+/* ===========================
+   ANIMATIONS
+   =========================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+/* Staggered children */
+.stagger > *:nth-child(1) { transition-delay: 0s; }
+.stagger > *:nth-child(2) { transition-delay: 0.1s; }
+.stagger > *:nth-child(3) { transition-delay: 0.2s; }
+.stagger > *:nth-child(4) { transition-delay: 0.3s; }
+.stagger > *:nth-child(5) { transition-delay: 0.4s; }
+.stagger > *:nth-child(6) { transition-delay: 0.5s; }
+.stagger > *:nth-child(7) { transition-delay: 0.6s; }
+.stagger > *:nth-child(8) { transition-delay: 0.7s; }
+
+/* Text reveal — characters slide up */
+.text-reveal {
+  overflow: hidden;
+  display: inline-block;
+}
+.text-reveal > span {
+  display: inline-block;
+  transform: translateY(100%);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.text-reveal.visible > span {
+  transform: translateY(0);
+}
+
+/* Magnetic hover */
+.magnetic {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.magnetic:hover {
+  transform: translateY(-3px);
+}
+
+/* ===========================
+   FLOATING ARCS
+   =========================== */
+
+@keyframes arc-drift-1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(12px, -6px) rotate(0.8deg); }
+  50% { transform: translate(-5px, 8px) rotate(-0.4deg); }
+  75% { transform: translate(7px, 3px) rotate(0.3deg); }
+}
+
+@keyframes arc-drift-2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(-8px, 5px) rotate(-0.6deg); }
+  66% { transform: translate(6px, -7px) rotate(0.4deg); }
+}
+
+@keyframes arc-drift-3 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(6px, -10px); }
+}
+
+.arc-float-1 { animation: arc-drift-1 28s ease-in-out infinite; pointer-events: none; }
+.arc-float-2 { animation: arc-drift-2 35s ease-in-out infinite; animation-delay: -10s; pointer-events: none; }
+.arc-float-3 { animation: arc-drift-3 22s ease-in-out infinite; animation-delay: -18s; pointer-events: none; }
+
+/* ===========================
+   CARDS
+   =========================== */
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-rule);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(26, 54, 93, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04);
+  border-color: var(--color-gold);
+}
+
+.card-flat {
+  background: transparent;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: background 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-flat:hover {
+  background: var(--color-accent-soft);
+  transform: translateX(4px);
+}
+
+/* Gradient accent bar */
+.accent-bar {
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-gold), var(--color-accent));
+  background-size: 200% 100%;
+  animation: shimmer 8s ease infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ===========================
+   NARRATIVE
+   =========================== */
+
+.narrative {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--color-ink);
+}
+.narrative p { margin-bottom: 1.4rem; }
+.narrative strong { color: var(--color-accent); font-weight: 600; }
+.narrative em { color: var(--color-muted); }
+
+.pull-quote {
+  border-left: 3px solid var(--color-gold);
+  padding: 1.25rem 1.75rem;
+  margin: 2rem 0;
+  background: linear-gradient(135deg, var(--color-gold-soft) 0%, transparent 100%);
+  font-style: italic;
+  color: var(--color-muted);
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+/* Stats */
+.stat-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.25rem;
+  background: var(--color-surface);
+  border-radius: 12px;
+  border: 1px solid var(--color-rule);
+}
+.stat-number {
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.7rem;
+  color: var(--color-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 0.35rem;
+}
+
+/* Timeline */
+.timeline-item {
+  position: relative;
+  padding-left: 2rem;
+  padding-bottom: 1.75rem;
+  border-left: 2px solid var(--color-rule);
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 0.4rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  border: 2px solid var(--color-bg);
+}
+.timeline-item:last-child { border-left-color: transparent; }
+
+/* ===========================
+   SECTION HEADINGS
+   =========================== */
+
+.section-label {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-gold);
+}
+
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-accent);
+  margin-bottom: 2rem;
+}
+
+/* ===========================
+   PILL TAGS
+   =========================== */
+
+.pill {
+  display: inline-block;
+  font-size: 0.72rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 100px;
+  font-weight: 500;
+}
+.pill-accent {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+.pill-gold {
+  background: var(--color-gold-soft);
+  color: var(--color-warm);
+}
+.pill-green {
+  background: #ECFDF5;
+  color: #065F46;
+}
+.pill-amber {
+  background: #FFFBEB;
+  color: #92400E;
+}

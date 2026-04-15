@@ -1,0 +1,131 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Aryan D Haritsa — AI/ML Researcher & Engineer" } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/research', label: 'Research' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/about', label: 'About' },
+  { href: '/cv', label: 'CV' },
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body class="min-h-screen relative">
+
+  <!-- Floating decorative arcs -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+    <svg class="arc-float-1 absolute -top-24 right-[10%] w-[700px] h-[700px] opacity-[0.04]" viewBox="0 0 700 700" fill="none">
+      <circle cx="350" cy="350" r="300" stroke="#C49B2A" stroke-width="0.7"/>
+      <circle cx="350" cy="350" r="240" stroke="#1A365D" stroke-width="0.4"/>
+      <path d="M80 350 Q350 80 620 350" stroke="#C49B2A" stroke-width="0.5" fill="none"/>
+    </svg>
+    <svg class="arc-float-2 absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] opacity-[0.035]" viewBox="0 0 600 600" fill="none">
+      <circle cx="300" cy="300" r="260" stroke="#1A1A1A" stroke-width="0.5"/>
+      <path d="M40 300 Q300 40 560 300" stroke="#8B7355" stroke-width="0.4" fill="none"/>
+    </svg>
+    <svg class="arc-float-3 absolute top-[45%] right-[-3%] w-[450px] h-[450px] opacity-[0.03]" viewBox="0 0 450 450" fill="none">
+      <ellipse cx="225" cy="225" rx="200" ry="140" stroke="#1A365D" stroke-width="0.4"/>
+    </svg>
+  </div>
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-[var(--color-bg)]/80 backdrop-blur-md border-b border-[var(--color-rule)]/60">
+    <nav class="container-wide flex items-center justify-between py-4">
+      <a href="/" class="text-[var(--color-accent)] font-semibold text-xl tracking-tight magnetic" style="font-family: var(--font-serif);">
+        Aryan<span class="text-[var(--color-gold)]">.</span>
+      </a>
+      <div class="flex items-center gap-8 text-[13px]">
+        {navLinks.map(link => (
+          <a
+            href={link.href}
+            class:list={[
+              "transition-all duration-300 hover:text-[var(--color-accent)]",
+              currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+                ? "text-[var(--color-accent)] font-semibold"
+                : "text-[var(--color-muted)] font-medium"
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
+        <a href="/cv" class="ml-2 px-4 py-1.5 bg-[var(--color-accent)] text-white text-xs font-medium rounded-full hover:bg-[var(--color-accent-hover)] transition-all duration-300">
+          Resume ↓
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Spacer for fixed header -->
+  <div class="h-16"></div>
+
+  <!-- Main -->
+  <main class="relative z-10">
+    <slot />
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 mt-24 border-t border-[var(--color-rule)]">
+    <div class="container-wide py-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+        <div>
+          <p class="font-semibold text-[var(--color-accent)] mb-2" style="font-family: var(--font-serif);">Aryan D Haritsa</p>
+          <p class="text-[var(--color-muted)]">AI/ML Researcher & Engineer<br/>PES University, Bengaluru</p>
+        </div>
+        <div>
+          <p class="section-label mb-3">Connect</p>
+          <div class="flex flex-col gap-1.5">
+            <a href="https://github.com/Aryanharitsa" target="_blank" class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">GitHub</a>
+            <a href="https://linkedin.com/in/aryan-haritsa-60292925b" target="_blank" class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">LinkedIn</a>
+            <a href="mailto:aryanharitsa@gmail.com" class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">aryanharitsa@gmail.com</a>
+          </div>
+        </div>
+        <div>
+          <p class="section-label mb-3">Navigate</p>
+          <div class="flex flex-col gap-1.5">
+            {navLinks.map(link => (
+              <a href={link.href} class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">{link.label}</a>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-[var(--color-rule)] text-xs text-[var(--color-faint)]">
+        <p>&copy; 2026 Aryan D Haritsa &middot; Built with Astro + Tailwind</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll observer -->
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -60px 0px' }
+    );
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .text-reveal').forEach((el) => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

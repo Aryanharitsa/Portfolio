@@ -1,0 +1,405 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Project Ramanujan — AIMO Prize 3 | Aryan D Haritsa" description="A deep dive into Project Ramanujan: building an olympiad math inference stack in 3 weeks for the AIMO Prize 3 Kaggle competition. Solo entry, 36/50 public score.">
+
+  <!-- Back link -->
+  <div class="max-w-[780px] mx-auto px-6 pt-6">
+    <a href="/projects" class="inline-flex items-center gap-1.5 text-sm text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      Back to Projects
+    </a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.03]">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dots-ramanujan" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1" fill="#1A365D"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dots-ramanujan)"/>
+      </svg>
+    </div>
+
+    <div class="max-w-[780px] mx-auto px-6 pt-12 pb-10 relative">
+      <div class="reveal">
+        <p class="text-sm uppercase tracking-[0.12em] text-[var(--color-faint)] font-medium mb-3">AIMO Prize 3 &middot; Kaggle &middot; March 2026</p>
+        <h1 class="text-3xl md:text-4xl font-semibold tracking-tight mb-5 hero-float" style="font-family: var(--font-serif); color: var(--color-accent);">
+          Project Ramanujan
+        </h1>
+        <p class="text-lg text-[var(--color-muted)] leading-relaxed max-w-[640px]">
+          The competition had been running for five months. Most teams started in November. I entered in the second week of March with nothing but a model checkpoint and an idea. Three weeks later, I had the highest public score on the leaderboard.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-[780px] mx-auto px-6"><div class="h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/20 to-transparent"></div></div>
+
+  <!-- Stats Bar -->
+  <section class="max-w-[780px] mx-auto px-6 py-10">
+    <div class="reveal-scale flex flex-wrap justify-center gap-5">
+      <div class="stat-block card-lift">
+        <span class="stat-number">36/50</span>
+        <span class="stat-label">Public Score</span>
+      </div>
+      <div class="stat-block card-lift">
+        <span class="stat-number">3</span>
+        <span class="stat-label">Weeks Built</span>
+      </div>
+      <div class="stat-block card-lift">
+        <span class="stat-number">Solo</span>
+        <span class="stat-label">Entry</span>
+      </div>
+      <div class="stat-block card-lift">
+        <span class="stat-number">116.8B</span>
+        <span class="stat-label">Parameters (5.1B Active)</span>
+      </div>
+      <div class="stat-block card-lift">
+        <span class="stat-number">N=8</span>
+        <span class="stat-label">Parallel Samples</span>
+      </div>
+      <div class="stat-block card-lift">
+        <span class="stat-number">5h</span>
+        <span class="stat-label">Wall Clock / 50 Problems</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-[780px] mx-auto px-6"><div class="h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/15 to-transparent"></div></div>
+
+  <!-- The Competition -->
+  <section class="max-w-[780px] mx-auto px-6 pt-12 pb-4">
+    <div class="reveal">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-8" style="font-family: var(--font-serif);">The Competition</h2>
+    </div>
+
+    <div class="narrative reveal">
+      <p>
+        AIMO Prize 3 was one of the most competitive AI challenges on Kaggle in 2026: a $2.2 million prize pool, international teams with months of preparation, and a problem set drawn from olympiad-level mathematics. The goal was to build a system that could solve 50 competition-grade math problems under a strict compute budget on Kaggle's T4x2 GPU environment. The competition opened in November 2025, and most serious contenders had been iterating since day one.
+      </p>
+      <p>
+        I did not start in November. I was not on a team. I entered in the second week of March 2026, roughly three weeks before the final deadline.
+      </p>
+      <p>
+        The reasoning was simple. I had been watching the leaderboard and studying the problem distribution. The gap between top scores was not about who had the best model -- nearly everyone was converging on a similar set of open-source reasoning models. The gap was in the infrastructure: how you prompted, how you sampled, how you executed tool calls, how you voted across samples. I realized the bottleneck was not the model. It was everything around the model. So I built it.
+      </p>
+    </div>
+  </section>
+
+  <!-- The Timeline -->
+  <section class="max-w-[780px] mx-auto px-6 pt-8 pb-4">
+    <div class="reveal">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-8" style="font-family: var(--font-serif);">Three Weeks, Start to Score</h2>
+    </div>
+
+    <div class="stagger">
+      <!-- Week 1 -->
+      <div class="timeline-item reveal">
+        <p class="text-sm font-semibold text-[var(--color-accent)] mb-1" style="font-family: var(--font-serif);">Week 1 -- The Wall</p>
+        <p class="text-sm text-[var(--color-muted)] leading-relaxed">
+          The first 72 hours went entirely to getting vLLM to start on the Kaggle kernel. Not inference. Not prompting. Just getting the server to boot without crashing. FlashInfer threw an fp8 dtype assertion on the T4 hardware. The attention backend enum values had silently changed between vLLM 0.10.x and 0.11.x, so configurations that worked locally produced cryptic failures on Kaggle. KV cache misconfigurations caused silent OOM kills. A startup race condition meant the server would sometimes bind to the port before the model weights finished loading, causing the first request to hang indefinitely. Every one of these took hours to isolate because Kaggle kernels have limited logging and no interactive debugger.
+        </p>
+      </div>
+
+      <!-- Week 2 -->
+      <div class="timeline-item reveal">
+        <p class="text-sm font-semibold text-[var(--color-accent)] mb-1" style="font-family: var(--font-serif);">Week 2 -- First Runs and the Regression Lesson</p>
+        <p class="text-sm text-[var(--color-muted)] leading-relaxed">
+          Once inference was stable, the stack started producing answers. Early reference runs on 10-problem subsets scored 7/10 with a clean prompt and majority voting. Feeling confident, I added a problem classifier and a policy book -- a set of strategy-selection rules based on detected problem type. The score dropped to 5/10. Two days of work, and the system was measurably worse. The classifier was miscategorizing geometry problems as algebra, which triggered the wrong reasoning chain, which cascaded into answer extraction failures.
+        </p>
+        <div class="pull-quote mt-4">
+          I learned that additive complexity without controlled ablation is a trap. Every new component has to earn its place against the clean baseline, measured on the same problem set, with the same seeds.
+        </div>
+      </div>
+
+      <!-- Week 3 -->
+      <div class="timeline-item reveal">
+        <p class="text-sm font-semibold text-[var(--color-accent)] mb-1" style="font-family: var(--font-serif);">Week 3 -- Convergence</p>
+        <p class="text-sm text-[var(--color-muted)] leading-relaxed">
+          Stripped the classifier. Went back to the clean Harmony protocol with tool-integrated reasoning. Refined the prompt to give the model maximal freedom while enforcing output structure. Tuned the voting layer. Ran full 50-problem submissions. The final system scored 36/50 on the public leaderboard -- the official highest public score posted during the competition. For context, the previous year's AIMO Prize 2 winning solution scored 34/50.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-[780px] mx-auto px-6"><div class="h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/15 to-transparent"></div></div>
+
+  <!-- Architecture -->
+  <section class="max-w-[780px] mx-auto px-6 pt-12 pb-4">
+    <div class="reveal">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-8" style="font-family: var(--font-serif);">Architecture</h2>
+    </div>
+
+    <div class="narrative reveal">
+      <p>
+        The system was built as a sequential pipeline. Each problem passes through six stages, with N=8 parallel samples generated at the inference layer. The design prioritized robustness over cleverness -- every stage had to be independently testable and recoverable.
+      </p>
+    </div>
+
+    <!-- Architecture Diagram -->
+    <div class="reveal-scale my-8">
+      <div class="border border-[var(--color-rule)] rounded-lg overflow-hidden shimmer-border">
+        <div class="h-2.5 bg-gradient-to-r from-[#1A365D] via-[#2D5AA0] to-[#4A90D9]"></div>
+        <div class="p-6 md:p-8 bg-[var(--color-accent-soft)]/30">
+          <p class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] mb-5" style="font-family: var(--font-serif);">Inference Pipeline</p>
+          <pre class="text-xs md:text-sm text-[var(--color-ink)] leading-relaxed font-mono overflow-x-auto" style="background: none; border: none;"><code>Problem (LaTeX)
+    |
+    v
+Prompt Construction (Harmony Protocol)
+    |
+    v
+vLLM  (GPT-OSS-120B, 116.8B params, 5.1B active MoE)
+    |
+    +---> Sample 1 ---> Tool Exec (Jupyter) ---> Answer Detection
+    +---> Sample 2 ---> Tool Exec (Jupyter) ---> Answer Detection
+    +---> Sample 3 ---> Tool Exec (Jupyter) ---> Answer Detection
+    +---> ...
+    +---> Sample 8 ---> Tool Exec (Jupyter) ---> Answer Detection
+    |
+    v
+Entropy-Weighted Majority Voting
+    |
+    v
+Final Answer (integer)</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="narrative reveal">
+      <p>
+        <strong>Prompt Construction (Harmony):</strong> The Harmony protocol wraps each problem in a structured reasoning template that guides the model through problem comprehension, strategy selection, step-by-step solution, and verification. Crucially, it includes a tool-use preamble that teaches the model to write and execute Python code mid-reasoning when symbolic manipulation or numerical computation is needed.
+      </p>
+      <p>
+        <strong>Tool-Integrated Reasoning (TIR):</strong> Each sample gets its own Jupyter kernel. When the model generates a code block during its reasoning chain, the code is intercepted, executed, and the output is injected back into the context. This allows the model to verify intermediate steps, compute large combinatorics, and catch its own arithmetic errors before committing to a final answer.
+      </p>
+      <p>
+        <strong>Entropy-Weighted Voting:</strong> Rather than simple majority voting, the system weights each sample's answer by an entropy-derived confidence signal. Samples where the model's reasoning chain was internally consistent and converged cleanly carry more weight than samples that oscillated between approaches.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-[780px] mx-auto px-6"><div class="h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/15 to-transparent"></div></div>
+
+  <!-- Model Performance -->
+  <section class="max-w-[780px] mx-auto px-6 pt-12 pb-4">
+    <div class="reveal">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-8" style="font-family: var(--font-serif);">Model Performance in Context</h2>
+    </div>
+
+    <div class="narrative reveal">
+      <p>
+        GPT-OSS-120B is a 116.8 billion parameter Mixture-of-Experts model with 5.1 billion active parameters per forward pass. Running it on Kaggle's two T4 GPUs required careful quantization and KV cache management to fit within the 30 GB combined VRAM budget.
+      </p>
+      <p>
+        In draft runs against the AIME 2025 problem set, the system with tool-integrated reasoning solved roughly 97.9% of problems -- nearly perfect on the hardest national-level high school competition in the United States. To put that in perspective, that level of mathematical reasoning is roughly on par with consistently solving 5 out of 6 problems on an IMO paper, which is the threshold for a gold medal at the International Mathematical Olympiad.
+      </p>
+      <p>
+        On the actual AIMO Prize 3 competition set, which draws from an even harder distribution, the system scored 36 out of 50. That was the highest public score recorded on the leaderboard.
+      </p>
+    </div>
+
+    <!-- Highlighted comparison -->
+    <div class="reveal my-8 rounded-lg border border-[var(--color-rule)] overflow-hidden card-lift">
+      <div class="h-2 bg-gradient-to-r from-[var(--color-gold)] via-[#B8860B] to-[var(--color-warm)]"></div>
+      <div class="p-6 bg-[var(--color-gold-soft)]/30">
+        <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
+          <div class="text-center">
+            <p class="text-3xl font-bold text-[var(--color-accent)]" style="font-family: var(--font-serif);">36/50</p>
+            <p class="text-xs text-[var(--color-faint)] uppercase tracking-wide mt-1">AIMO 3 (2026)</p>
+            <p class="text-xs text-[var(--color-muted)] mt-0.5">Project Ramanujan</p>
+          </div>
+          <div class="hidden md:block w-px h-12 bg-[var(--color-rule)]"></div>
+          <div class="text-center">
+            <p class="text-3xl font-bold text-[var(--color-muted)]" style="font-family: var(--font-serif);">34/50</p>
+            <p class="text-xs text-[var(--color-faint)] uppercase tracking-wide mt-1">AIMO 2 (2025)</p>
+            <p class="text-xs text-[var(--color-muted)] mt-0.5">Winning Solution</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-[780px] mx-auto px-6"><div class="h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/15 to-transparent"></div></div>
+
+  <!-- Failure Taxonomy -->
+  <section class="max-w-[780px] mx-auto px-6 pt-12 pb-4">
+    <div class="reveal">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-8" style="font-family: var(--font-serif);">Where It Breaks -- A Failure Taxonomy</h2>
+    </div>
+
+    <div class="narrative reveal">
+      <p>
+        Scoring 36 out of 50 means 14 problems were missed. Understanding why matters more than the score itself. Over the course of hundreds of draft runs, five distinct failure classes emerged.
+      </p>
+    </div>
+
+    <div class="stagger mt-6">
+      <div class="reveal border border-[var(--color-rule)] rounded-lg p-5 mb-4 card-lift shimmer-border">
+        <div class="h-1.5 bg-gradient-to-r from-[#1A365D] to-[#2D5AA0] rounded-full mb-3 w-16"></div>
+        <p class="text-sm font-semibold text-[var(--color-accent)] mb-1.5" style="font-family: var(--font-serif);">F1 -- Attractor Traps</p>
+        <p class="text-sm text-[var(--color-muted)] leading-relaxed">
+          The model converges on a wrong answer through a clean, plausible factor. The reasoning looks correct. The intermediate steps check out. But there is a subtle error early in the chain -- often a sign error or a miscounted case -- and the rest of the proof builds consistently on that mistake. Because the error is clean, multiple samples independently converge on the same wrong answer, and majority voting locks it in.
+        </p>
+      </div>
+
+      <div class="reveal border border-[var(--color-rule)] rounded-lg p-5 mb-4 card-lift shimmer-border">
+        <div class="h-1.5 bg-gradient-to-r from-[#2D5AA0] to-[#4A90D9] rounded-full mb-3 w-16"></div>
+        <p class="text-sm font-semibold text-[var(--color-accent)] mb-1.5" style="font-family: var(--font-serif);">F3 -- Long-Horizon Failures</p>
+        <p class="text-sm text-[var(--color-muted)] leading-relaxed">
+          Problems requiring more than 15-20 reasoning steps. The model's accuracy degrades roughly exponentially with chain length. By the time it reaches the final computation, accumulated approximations and dropped constraints make the answer unreliable. Tool execution helps, but cannot compensate for conceptual drift in the reasoning itself.
+        </p>
+      </div>
+
+      <div class="reveal border border-[var(--color-rule)] rounded-lg p-5 mb-4 card-lift shimmer-border">
+        <div class="h-1.5 bg-gradient-to-r from-[#4A90D9] to-[#7AB8F5] rounded-full mb-3 w-16"></div>
+        <p class="text-sm font-semibold text-[var(--color-accent)] mb-1.5" style="font-family: var(--font-serif);">F4 -- Existential Failures</p>
+        <p class="text-sm text-[var(--color-muted)] leading-relaxed">
+          Problems where the model fails to recognize the nature of what is being asked. Not a computation error -- a comprehension error. The model answers a related but different question, or misidentifies the mathematical domain entirely. These failures are invisible to the voting layer because all samples share the same misunderstanding.
+        </p>
+      </div>
+
+      <div class="reveal border border-[var(--color-rule)] rounded-lg p-5 mb-4 card-lift shimmer-border">
+        <div class="h-1.5 bg-gradient-to-r from-[#7AB8F5] to-[#A8D4FF] rounded-full mb-3 w-16"></div>
+        <p class="text-sm font-semibold text-[var(--color-accent)] mb-1.5" style="font-family: var(--font-serif);">F5 -- Generation-Miss Walls</p>
+        <p class="text-sm text-[var(--color-muted)] leading-relaxed">
+          The model never generates the correct approach in any of the 8 samples. Not because the approach is unknown to the model -- it may surface it in larger sample sizes -- but because the sampling temperature and top-p configuration happen to never explore that region of the solution space within 8 draws. This is a pure coverage failure: the correct answer exists in the model's distribution but is not sampled.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-[780px] mx-auto px-6"><div class="h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/15 to-transparent"></div></div>
+
+  <!-- The P10 Story -->
+  <section class="max-w-[780px] mx-auto px-6 pt-12 pb-4">
+    <div class="reveal">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-8" style="font-family: var(--font-serif);">The P10 Heartbreak</h2>
+    </div>
+
+    <div class="narrative reveal">
+      <p>
+        Of all 50 problems, Problem 10 taught me the most. It was a Hamiltonian paths problem -- a combinatorial question about counting specific traversals in a graph. Across 8 parallel samples, the results split: 4 out of 8 converged on 276, and 3 out of 8 converged on 552. The correct answer was 552.
+      </p>
+      <p>
+        The majority voting system locked in 276. The wrong answer won the popular vote.
+      </p>
+      <p>
+        I tried adjusting the voting threshold. I tried weighting by chain length, by code execution success rate, by final-step confidence. Each adjustment fixed P10 but broke other problems that had been scoring correctly. The fundamental issue was not the voting mechanism.
+      </p>
+    </div>
+
+    <div class="pull-quote reveal">
+      The wrong answer is simply more probable per sample. This is not an infrastructure problem. This is a model-level attractor -- the incorrect reasoning path has higher likelihood than the correct one, and no amount of voting-layer engineering can overcome that when the majority of samples converge on the same mistake.
+    </div>
+
+    <div class="narrative reveal">
+      <p>
+        P10 crystallized the distinction between problems I could solve with better engineering and problems that required a fundamentally different model or approach. It was the clearest example of an F1 attractor trap in the entire competition set, and accepting that some problems were beyond the reach of the current architecture was part of knowing where to invest the remaining time.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-[780px] mx-auto px-6"><div class="h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/15 to-transparent"></div></div>
+
+  <!-- What I Built -->
+  <section class="max-w-[780px] mx-auto px-6 pt-12 pb-4">
+    <div class="reveal">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-8" style="font-family: var(--font-serif);">The Stack</h2>
+    </div>
+
+    <div class="narrative reveal">
+      <p>
+        Everything was built from scratch. There was no starter kit, no shared team infrastructure, no prior competition codebase to fork from. The full list of components written over those three weeks:
+      </p>
+    </div>
+
+    <div class="reveal mt-4 mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="border border-[var(--color-rule)] rounded-lg p-4 bg-[var(--color-accent-soft)]/20">
+          <p class="text-sm font-semibold text-[var(--color-accent)]" style="font-family: var(--font-serif);">Harmony Protocol</p>
+          <p class="text-xs text-[var(--color-muted)] mt-1">Structured reasoning prompt with tool-use preamble, chain-of-thought enforcement, and answer extraction</p>
+        </div>
+        <div class="border border-[var(--color-rule)] rounded-lg p-4 bg-[var(--color-accent-soft)]/20">
+          <p class="text-sm font-semibold text-[var(--color-accent)]" style="font-family: var(--font-serif);">vLLM Integration</p>
+          <p class="text-xs text-[var(--color-muted)] mt-1">Custom server configuration for T4x2 with quantization, KV cache tuning, and health-check gating</p>
+        </div>
+        <div class="border border-[var(--color-rule)] rounded-lg p-4 bg-[var(--color-accent-soft)]/20">
+          <p class="text-sm font-semibold text-[var(--color-accent)]" style="font-family: var(--font-serif);">Tool Execution Engine</p>
+          <p class="text-xs text-[var(--color-muted)] mt-1">Sandboxed Jupyter kernel pool with per-sample isolation, timeout management, and output injection</p>
+        </div>
+        <div class="border border-[var(--color-rule)] rounded-lg p-4 bg-[var(--color-accent-soft)]/20">
+          <p class="text-sm font-semibold text-[var(--color-accent)]" style="font-family: var(--font-serif);">Voting Layer</p>
+          <p class="text-xs text-[var(--color-muted)] mt-1">Entropy-weighted majority voting with answer normalization and confidence-based tie-breaking</p>
+        </div>
+        <div class="border border-[var(--color-rule)] rounded-lg p-4 bg-[var(--color-accent-soft)]/20">
+          <p class="text-sm font-semibold text-[var(--color-accent)]" style="font-family: var(--font-serif);">Answer Detection</p>
+          <p class="text-xs text-[var(--color-muted)] mt-1">Multi-pattern parser for extracting integer answers from natural language, LaTeX, and code output</p>
+        </div>
+        <div class="border border-[var(--color-rule)] rounded-lg p-4 bg-[var(--color-accent-soft)]/20">
+          <p class="text-sm font-semibold text-[var(--color-accent)]" style="font-family: var(--font-serif);">Evaluation Harness</p>
+          <p class="text-xs text-[var(--color-muted)] mt-1">Offline test runner with reference problem sets, ablation tracking, and regression detection</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-[780px] mx-auto px-6"><div class="h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/15 to-transparent"></div></div>
+
+  <!-- Tech Stack Tags -->
+  <section class="max-w-[780px] mx-auto px-6 pt-12 pb-4">
+    <div class="reveal">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-8" style="font-family: var(--font-serif);">Technologies</h2>
+    </div>
+
+    <div class="reveal flex gap-2.5 flex-wrap">
+      <span class="text-xs px-3 py-1 bg-[var(--color-accent-soft)] text-[var(--color-accent)] rounded-full font-medium">GPT-OSS-120B</span>
+      <span class="text-xs px-3 py-1 bg-[var(--color-accent-soft)] text-[var(--color-accent)] rounded-full font-medium">vLLM</span>
+      <span class="text-xs px-3 py-1 bg-[var(--color-accent-soft)] text-[var(--color-accent)] rounded-full font-medium">Harmony Protocol</span>
+      <span class="text-xs px-3 py-1 bg-[var(--color-accent-soft)] text-[var(--color-accent)] rounded-full font-medium">Tool-Integrated Reasoning</span>
+      <span class="text-xs px-3 py-1 bg-[var(--color-accent-soft)] text-[var(--color-accent)] rounded-full font-medium">Kaggle T4x2</span>
+      <span class="text-xs px-3 py-1 bg-[var(--color-accent-soft)] text-[var(--color-accent)] rounded-full font-medium">N=8 Majority Voting</span>
+      <span class="text-xs px-3 py-1 bg-[var(--color-accent-soft)] text-[var(--color-accent)] rounded-full font-medium">FlashInfer</span>
+      <span class="text-xs px-3 py-1 bg-[var(--color-accent-soft)] text-[var(--color-accent)] rounded-full font-medium">Jupyter Kernels</span>
+      <span class="text-xs px-3 py-1 bg-[var(--color-accent-soft)] text-[var(--color-accent)] rounded-full font-medium">Python</span>
+      <span class="text-xs px-3 py-1 bg-[var(--color-accent-soft)] text-[var(--color-accent)] rounded-full font-medium">MoE Inference</span>
+    </div>
+  </section>
+
+  <div class="max-w-[780px] mx-auto px-6"><div class="h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/15 to-transparent"></div></div>
+
+  <!-- Reflection -->
+  <section class="max-w-[780px] mx-auto px-6 pt-12 pb-16">
+    <div class="reveal">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-8" style="font-family: var(--font-serif);">Reflection</h2>
+    </div>
+
+    <div class="narrative reveal">
+      <p>
+        Project Ramanujan was not about being fast. It was about understanding what the actual problem was. Most of the competition was not about mathematical reasoning -- the model handled that. The competition was about systems engineering: getting a 116-billion-parameter model to run reliably on consumer GPUs, building a tool execution layer that did not corrupt the reasoning chain, and designing a voting mechanism that surfaced the right answer from a noisy distribution of samples.
+      </p>
+      <p>
+        The three weeks forced a discipline that I think longer timelines sometimes erode. Every component had to justify itself against the baseline. Every hour had to be allocated to the highest-leverage problem remaining. There was no time for speculative architecture -- only measured, incremental improvement.
+      </p>
+      <p>
+        The 14 problems that were missed are not a failure. They are a map. They tell me exactly where the model's boundaries are, what types of reasoning still require fundamentally different approaches, and what the next generation of systems needs to solve. That map is, in some ways, more valuable than the score.
+      </p>
+    </div>
+
+    <div class="pull-quote reveal">
+      The score tells you where you are. The failures tell you where to go next.
+    </div>
+
+    <div class="reveal mt-10">
+      <a href="/projects" class="inline-flex items-center gap-1.5 text-sm text-[var(--color-accent)] font-medium hover:underline">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        Back to all projects
+      </a>
+    </div>
+  </section>
+
+</Base>

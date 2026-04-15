@@ -1,0 +1,148 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="TITAN — Trustless Identity & Transaction Authentication Network">
+  <section class="max-w-[780px] mx-auto px-6 py-20">
+
+    <!-- Back link -->
+    <a href="/projects" class="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors mb-12 group">
+      <span class="group-hover:-translate-x-1 transition-transform">&larr;</span>
+      Back to Projects
+    </a>
+
+    <!-- Header -->
+    <div class="reveal mb-16">
+      <p class="text-sm uppercase tracking-widest text-amber-400 mb-3">Research &middot; Security &middot; Cryptography</p>
+      <h1 class="text-4xl md:text-5xl font-semibold tracking-tight mb-5" style="font-family: var(--font-serif); color: var(--color-accent);">TITAN</h1>
+      <p class="text-lg text-neutral-400">Trustless Identity & Transaction Authentication Network</p>
+    </div>
+
+    <!-- Origin story -->
+    <div class="narrative reveal mb-14">
+      <p>
+        This started as a capstone project. It did not stay one. The deeper I dug into KYC
+        verification pipelines, the more a single question kept surfacing: why does proving
+        your identity require exposing your identity? Every bank, every exchange, every
+        fintech app asks you to upload raw documents &mdash; passports, driver's licenses,
+        utility bills &mdash; into systems you cannot audit. The entire trust model is
+        backwards.
+      </p>
+      <p class="mt-4">
+        TITAN flips it. A verifier can confirm that an identity claim is valid without
+        ever seeing the original document. That is not a theoretical convenience &mdash;
+        it is a structural guarantee, enforced by mathematics.
+      </p>
+    </div>
+
+    <!-- Pull quote -->
+    <div class="pull-quote reveal-left mb-14">
+      <blockquote>
+        "The ZK component was the hardest part. Circom's constraint system forces you to
+        think about computation differently &mdash; every operation must be expressible
+        as a rank-1 constraint system. You cannot hide behind abstractions."
+      </blockquote>
+    </div>
+
+    <!-- Three layers -->
+    <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-8 reveal" style="font-family: var(--font-serif);">Three Integrated Systems</h2>
+
+    <div class="space-y-8 mb-14">
+      <div class="shimmer-border card-lift p-6 rounded-xl reveal-left">
+        <h3 class="text-lg font-semibold text-amber-400 mb-2">Layer 1 &mdash; AI Document Forensics</h3>
+        <p class="text-neutral-300 text-sm leading-relaxed">
+          Vision models trained to detect manipulated identity documents. Not just pixel-level
+          tampering &mdash; the system catches font inconsistencies, metadata anomalies, and
+          compression artifacts that survive casual editing. This is the first gate: if a
+          document is forged, the pipeline rejects it before any cryptographic work begins.
+        </p>
+      </div>
+
+      <div class="shimmer-border card-lift p-6 rounded-xl reveal">
+        <h3 class="text-lg font-semibold text-amber-400 mb-2">Layer 2 &mdash; Zero-Knowledge Proofs (Circom)</h3>
+        <p class="text-neutral-300 text-sm leading-relaxed">
+          The core innovation. Once a document passes forensics, its claims are encoded into
+          a Circom circuit. The prover generates a ZK-SNARK that attests to the validity of
+          the identity claim &mdash; age, nationality, residency &mdash; without revealing
+          the underlying data. The verifier gets a boolean: valid or not. Nothing else leaks.
+        </p>
+      </div>
+
+      <div class="shimmer-border card-lift p-6 rounded-xl reveal-right">
+        <h3 class="text-lg font-semibold text-amber-400 mb-2">Layer 3 &mdash; GNN Anti-Money Laundering</h3>
+        <p class="text-neutral-300 text-sm leading-relaxed">
+          Identity verification is only half the compliance picture. The GNN-based AML engine
+          ingests transaction graphs in real-time, looking for structural patterns &mdash;
+          layering, fan-out/fan-in, rapid cycling &mdash; that signal illicit flows. Graph
+          neural networks are a natural fit here because the data is inherently relational.
+        </p>
+      </div>
+    </div>
+
+    <!-- Architecture diagram -->
+    <div class="reveal mb-14">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-6" style="font-family: var(--font-serif);">System Architecture</h2>
+      <div class="bg-neutral-900/60 border border-neutral-700 rounded-xl p-6 font-mono text-xs md:text-sm text-neutral-300 overflow-x-auto leading-relaxed">
+        <pre class="whitespace-pre">
+  Document Upload
+       |
+       v
+ +-----------------+
+ | AI Forensics    |----> Reject (if tampered)
+ | (Vision Models) |
+ +-----------------+
+       |
+       v  (clean document)
+ +---------------------+
+ | ZK Proof Generation |
+ | (Circom / R1CS)     |
+ +---------------------+
+       |
+       v  (proof + public signals)
+ +----------------------+
+ | On-chain Verification|
+ | (Smart Contract)     |
+ +----------------------+
+       |
+       v  (verified identity)
+ +-------------------+
+ | AML Engine (GNN)  |
+ | Transaction Graph |
+ +-------------------+
+       |
+       v
+ +-------------------+
+ | Compliance Report |
+ +-------------------+
+        </pre>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stat-block reveal mb-14">
+      <div>
+        <span class="stat-number">3</span>
+        <span class="stat-label">Integrated Systems</span>
+      </div>
+      <div>
+        <span class="stat-number">SeCrypt 2026</span>
+        <span class="stat-label">Paper Submitted</span>
+      </div>
+      <div>
+        <span class="stat-number">First-of-kind</span>
+        <span class="stat-label">ZK + AI KYC Pipeline</span>
+      </div>
+    </div>
+
+    <!-- Tech -->
+    <div class="reveal">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-4" style="font-family: var(--font-serif);">Stack</h2>
+      <div class="flex flex-wrap gap-2">
+        {['Circom', 'ZK-SNARKs', 'Graph Neural Networks', 'Node.js', 'Python', 'Solidity', 'PyTorch Geometric'].map(t => (
+          <span class="px-3 py-1 text-xs rounded-full border border-neutral-700 text-neutral-300">{t}</span>
+        ))}
+      </div>
+    </div>
+
+  </section>
+</Base>

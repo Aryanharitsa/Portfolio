@@ -1,0 +1,157 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="CrediCrew — AI-Powered Recruitment Matching">
+  <section class="max-w-[780px] mx-auto px-6 py-20">
+
+    <!-- Back link -->
+    <a href="/projects" class="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors mb-12 group">
+      <span class="group-hover:-translate-x-1 transition-transform">&larr;</span>
+      Back to Projects
+    </a>
+
+    <!-- Header -->
+    <div class="reveal mb-16">
+      <p class="text-sm uppercase tracking-widest text-amber-400 mb-3">NLP &middot; Information Retrieval &middot; Full-Stack</p>
+      <h1 class="text-4xl md:text-5xl font-semibold tracking-tight mb-5" style="font-family: var(--font-serif); color: var(--color-accent);">CrediCrew</h1>
+      <p class="text-lg text-neutral-400">AI-powered recruitment matching that understands fit, not just keywords</p>
+    </div>
+
+    <!-- Narrative -->
+    <div class="narrative reveal mb-14">
+      <p>
+        The hiring pipeline is broken in a specific, measurable way. A recruiter posting
+        a senior backend role receives hundreds of resumes. Eighty percent are irrelevant.
+        Of the remaining twenty percent, maybe half are genuinely strong fits &mdash; but
+        distinguishing them requires reading each one carefully against the job description,
+        weighing trade-offs between experience depth and breadth, evaluating project
+        relevance, and making judgment calls that do not scale.
+      </p>
+      <p class="mt-4">
+        CrediCrew automates the screening and ranking phase. Not with keyword matching &mdash;
+        that is what applicant tracking systems have done for decades, and it is why good
+        candidates get filtered out for not using the exact right buzzwords. Instead,
+        CrediCrew encodes both resumes and job descriptions into the same semantic embedding
+        space and retrieves candidates by meaning, not lexical overlap.
+      </p>
+    </div>
+
+    <!-- The two-stage architecture -->
+    <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-8 reveal" style="font-family: var(--font-serif);">The Two-Stage Architecture</h2>
+
+    <div class="pull-quote reveal-left mb-10">
+      <blockquote>
+        "The interesting technical choice: a bi-encoder gets you speed &mdash;
+        sub-second retrieval across thousands of candidates. A cross-encoder gets you
+        accuracy &mdash; nuanced understanding of fit. Use both."
+      </blockquote>
+    </div>
+
+    <div class="space-y-6 mb-14">
+      <div class="shimmer-border card-lift p-6 rounded-xl reveal-left">
+        <h3 class="text-lg font-semibold text-amber-400 mb-2">Stage 1 &mdash; Bi-Encoder Retrieval</h3>
+        <p class="text-neutral-300 text-sm leading-relaxed">
+          Every resume and every job description is independently encoded into a 384-dimensional
+          vector using MiniLM-L6-v2 via sentence-transformers. These embeddings live in a
+          FAISS index. When a new JD arrives, the system retrieves the top-k nearest candidates
+          in milliseconds &mdash; even across a corpus of tens of thousands. This stage
+          prioritizes recall: cast a wide net, miss nothing plausible.
+        </p>
+      </div>
+
+      <div class="shimmer-border card-lift p-6 rounded-xl reveal-right">
+        <h3 class="text-lg font-semibold text-amber-400 mb-2">Stage 2 &mdash; Cross-Encoder Re-Ranking</h3>
+        <p class="text-neutral-300 text-sm leading-relaxed">
+          The top candidates from Stage 1 are then re-ranked by a cross-encoder that
+          processes the resume and JD as a single concatenated input. This allows full
+          attention between every token in both documents &mdash; the model can reason
+          about whether three years of Django experience compensates for a missing
+          Kubernetes requirement, something a bi-encoder's independent encoding cannot
+          capture. This stage prioritizes precision: the final top-10 should be genuinely
+          the best fits.
+        </p>
+      </div>
+    </div>
+
+    <!-- Architecture diagram -->
+    <div class="reveal mb-14">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-6" style="font-family: var(--font-serif);">Pipeline Architecture</h2>
+      <div class="bg-neutral-900/60 border border-neutral-700 rounded-xl p-6 font-mono text-xs md:text-sm text-neutral-300 overflow-x-auto leading-relaxed">
+        <pre class="whitespace-pre">
+  Resume Upload          Job Description
+       |                       |
+       v                       v
+  +-----------+         +-----------+
+  | MiniLM    |         | MiniLM    |
+  | Encoder   |         | Encoder   |
+  +-----------+         +-----------+
+       |                       |
+       v                       v
+  FAISS Index  ---- cosine ---  Query Vector
+       |
+       v  (top-50 candidates)
+  +-------------------+
+  | Cross-Encoder     |
+  | Re-Ranking        |
+  | (resume + JD      |
+  |  jointly attended)|
+  +-------------------+
+       |
+       v  (top-10 ranked)
+  +-------------------+
+  | Match Explanation |
+  | & Score Card      |
+  +-------------------+
+       |
+       v
+  Recruiter Dashboard
+        </pre>
+      </div>
+    </div>
+
+    <!-- Why it matters -->
+    <div class="narrative reveal mb-14">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-4" style="font-family: var(--font-serif);">Why This Matters</h2>
+      <p>
+        The difference between keyword matching and semantic matching is not incremental.
+        A candidate whose resume says "built distributed microservices handling 10k RPS"
+        will not match a JD asking for "scalable backend architecture" under lexical search.
+        Under semantic search, the connection is obvious. CrediCrew surfaces candidates
+        that ATS systems systematically miss.
+      </p>
+      <p class="mt-4">
+        Every match comes with an explanation &mdash; not just a score, but a breakdown
+        of which skills aligned, where the gaps are, and how confidently the system rates
+        the fit. Recruiters do not have to trust a black box.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stat-block reveal mb-14">
+      <div>
+        <span class="stat-number">&lt;1.5s</span>
+        <span class="stat-label">CV Processing Time</span>
+      </div>
+      <div>
+        <span class="stat-number">&lt;300ms</span>
+        <span class="stat-label">Cached Matching</span>
+      </div>
+      <div>
+        <span class="stat-number">Top-10</span>
+        <span class="stat-label">Cross-Encoder Precision</span>
+      </div>
+    </div>
+
+    <!-- Tech -->
+    <div class="reveal">
+      <h2 class="text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-4" style="font-family: var(--font-serif);">Stack</h2>
+      <div class="flex flex-wrap gap-2">
+        {['Python', 'FastAPI', 'React', 'sentence-transformers', 'MiniLM-L6-v2', 'FAISS', 'Cross-Encoder', 'PostgreSQL'].map(t => (
+          <span class="px-3 py-1 text-xs rounded-full border border-neutral-700 text-neutral-300">{t}</span>
+        ))}
+      </div>
+    </div>
+
+  </section>
+</Base>
