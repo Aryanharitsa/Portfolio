@@ -4,115 +4,192 @@ import Base from '../../layouts/Base.astro';
 const projects = [
   {
     slug: 'ramanujan',
-    title: 'Project Ramanujan — AIMO Prize 3',
+    title: 'Project Ramanujan',
+    subtitle: 'AIMO Prize 3 · 36/50',
+    kind: 'Competition',
     date: 'Mar 2026',
     badges: ['Solo', '3 weeks', '36/50'],
-    description: 'Entered one of Kaggle\'s most competitive AI competitions with 3 weeks left. Built the entire GPT-OSS-120B inference stack from scratch. Scored 36/50 — beating the previous year\'s winning score of 34/50.',
+    description: 'Entered Kaggle\'s hardest AI math competition with 3 weeks left. Built the entire GPT-OSS-120B inference stack — Harmony prompting, tool-integrated reasoning, N=8 entropy-weighted voting. Scored 36/50. The previous year\'s winning solution scored 34/50.',
     tags: ['GPT-OSS-120B', 'vLLM', 'Harmony', 'TIR', 'N=8 Voting'],
-    gradient: 'from-[var(--color-gold)] via-[var(--color-accent)] to-[var(--color-gold)]',
+    gradient: 'from-[#B4892A] via-[#0F2A4A] to-[#B4892A]',
     github: 'https://github.com/Aryanharitsa/My-AI-Journey/tree/main/PROJECT_RAMANUJAN_AIMO_3',
+    featured: true,
+  },
+  {
+    slug: 'vitruvius',
+    title: 'Project Vitruvius',
+    subtitle: 'Encoder archaeology for dense retrieval',
+    kind: 'Research',
+    date: 'Apr 2026 · 90%',
+    badges: ['Research', 'Phase 8 landed', '6 encoders'],
+    description: 'A Pareto-frontier study comparing transformer, SSM, recurrent, and convolutional encoders on BEIR. Latency, accuracy, head-pruning, and position-shuffle measurements. Key finding: a 6.4M-parameter BiLSTM sits on the frontier next to MiniLM.',
+    tags: ['BEIR', 'MS MARCO', 'Mamba', 'LSTM', 'CNN', 'FAISS'],
+    gradient: 'from-[#B4892A] via-[#1E4E7A] to-[#0F2A4A]',
+    github: 'https://github.com/Aryanharitsa',
+    featured: true,
+  },
+  {
+    slug: 'orpheus',
+    title: 'Project Orpheus',
+    subtitle: 'Mesa-optimization probe',
+    kind: 'Research',
+    date: 'Apr 2026 → present',
+    badges: ['Research', 'Active'],
+    description: 'Do small transformers trained on in-context learning implement gradient descent internally? A mechanistic interpretability probe using TransformerLens, activation patching, and causal tracing.',
+    tags: ['TransformerLens', 'Activation patching', 'ICL', 'Mesa-optimization'],
+    gradient: 'from-[#0F2A4A] via-[#1E4E7A] to-[#4A90D9]',
+    github: 'https://github.com/Aryanharitsa',
   },
   {
     slug: 'titan',
-    title: 'TITAN — KYC + Zero-Knowledge + AML',
+    title: 'TITAN',
+    subtitle: 'KYC + ZK proofs + AML',
+    kind: 'Capstone · Paper',
     date: '2025 – 2026',
-    badges: ['Capstone', 'Paper → SeCrypt 2026'],
-    description: 'End-to-end identity verification: AI document forensics, zero-knowledge proofs for private on-chain identity attestation, and GNN-based fraud detection. Designed so verifiers confirm identity without seeing raw documents.',
+    badges: ['Capstone', 'SeCrypt 2026'],
+    description: 'End-to-end identity verification: AI document forensics, zero-knowledge proofs for private on-chain identity attestation, GNN-based fraud detection. Designed so verifiers confirm identity without seeing raw documents.',
     tags: ['Circom', 'ZK Proofs', 'GNN', 'KYC/AML', 'Blockchain'],
-    gradient: 'from-[#1A365D] via-[#2D5AA0] to-[#4A90D9]',
+    gradient: 'from-[#0F2A4A] via-[#1E4E7A] to-[#4A90D9]',
     github: 'https://github.com/Aryanharitsa/Projects',
   },
   {
     slug: 'arc-agi',
     title: 'ARC AGI 3',
+    subtitle: 'Abstract reasoning benchmark',
+    kind: 'Competition',
     date: '2026',
     badges: ['Active', 'Kaggle'],
-    description: 'Competing in the ARC Prize 2026 — a benchmark designed to test abstract reasoning and out-of-distribution generalization that remains beyond current AI systems. No brute force or memorization works here.',
+    description: 'Competing in ARC Prize 2026 — a benchmark designed to test abstract reasoning and out-of-distribution generalization that remains beyond current AI systems. No brute force or memorization works here.',
     tags: ['Abstract Reasoning', 'Generalization', 'Kaggle'],
-    gradient: 'from-[#2D5AA0] via-[#4A90D9] to-[#7AB8F5]',
+    gradient: 'from-[#B4892A] to-[#8A6414]',
   },
   {
     slug: undefined,
-    title: 'Project Rick — Nagravision Kudelski',
+    title: 'Project Rick',
+    subtitle: 'Nagravision Kudelski · Agentic AI',
+    kind: 'Internship',
     date: 'Jan – May 2026',
     badges: ['Internship'],
-    description: 'Agentic chatbot orchestrating across AWS Bedrock, Knowledge Bases, S3, Athena, and MS Teams. Static knowledge layer indexed over product architecture; dynamic layer for real-time asset telemetry queries.',
-    tags: ['AWS Bedrock', 'Knowledge Bases', 'S3', 'Athena', 'Glue', 'MS Teams'],
-    gradient: 'from-[#4A90D9] via-[#7AB8F5] to-[#B8D4F5]',
+    description: 'Agentic chatbot orchestrating across AWS Bedrock, Knowledge Bases, S3, Athena, Glue, MS Teams. Static knowledge layer over product architecture + dynamic layer for real-time asset telemetry.',
+    tags: ['AWS Bedrock', 'Knowledge Bases', 'Athena', 'Glue', 'MS Teams'],
+    gradient: 'from-[#1E4E7A] via-[#4A90D9] to-[#7AB8F5]',
   },
   {
     slug: 'waysafe',
     title: 'WaySafe',
+    subtitle: 'Smart tourism safety · Hackverse 2025',
+    kind: 'Hackathon',
     date: 'Sep 2025',
-    badges: ['Hackverse 2025', 'MIT Bangalore', '7th Place'],
-    description: 'Smart tourism safety app — route optimization weighted by real-time crime data, crowd density, and weather hazards. Built in 36 hours at the hackathon.',
-    tags: ['Safety', 'Tourism', 'Real-Time', 'Hackathon'],
-    gradient: 'from-[var(--color-gold)] via-[var(--color-warm)] to-[var(--color-gold)]',
+    badges: ['Hackverse · 7th', 'MIT Bangalore'],
+    description: 'Safety-weighted route optimization for tourists. Real-time crime data + crowd density + weather hazards. Built in 36 hours at the hackathon.',
+    tags: ['Safety', 'Routing', 'Real-time'],
+    gradient: 'from-[#B4892A] via-[#8B6B3A] to-[#B4892A]',
     github: 'https://github.com/Aryanharitsa/Projects',
   },
   {
     slug: 'credicrew',
-    title: 'CrediCrew — AI Recruitment',
+    title: 'CrediCrew',
+    subtitle: 'AI recruitment — semantic match',
+    kind: 'Side project',
     date: '2025',
     badges: ['Full-Stack'],
-    description: 'AI-powered candidate-job matching. Sentence transformer embeddings + FAISS for semantic search. Cross-encoder re-ranking for precision. FastAPI + React with sub-second matching.',
-    tags: ['FastAPI', 'React', 'Sentence Transformers', 'FAISS', 'Embeddings'],
-    gradient: 'from-[#1A365D] to-[#2D5AA0]',
+    description: 'AI-powered resume ↔ JD matching. Sentence-transformer embeddings + FAISS recall + cross-encoder rerank. FastAPI + React with sub-second response times.',
+    tags: ['FastAPI', 'React', 'Sentence Transformers', 'FAISS'],
+    gradient: 'from-[#0F2A4A] to-[#1E4E7A]',
     github: 'https://github.com/Aryanharitsa/Projects',
   },
 ];
+
+const featured = projects.filter(p => p.featured);
+const rest = projects.filter(p => !p.featured);
 ---
 
 <Base title="Projects — Aryan D Haritsa">
-  <section class="max-w-[780px] mx-auto px-6 pt-14 pb-6">
-    <p class="reveal text-sm uppercase tracking-[0.14em] text-[var(--color-gold)] font-medium mb-2">Engineering & Competitions</p>
-    <h1 class="reveal text-3xl font-semibold mb-4" style="font-family: var(--font-serif); color: var(--color-accent);">Projects</h1>
-    <p class="reveal text-[var(--color-muted)]">Competition entries, industry work, and side projects. Everything from Kaggle math olympiads to agentic AI systems to hackathon prototypes.</p>
-  </section>
 
-  <section class="max-w-[780px] mx-auto px-6 pb-12">
-    <h2 class="reveal text-xs uppercase tracking-[0.08em] font-bold text-[var(--color-accent)] border-b-2 border-[var(--color-accent)] pb-1.5 mb-8" style="font-family: var(--font-serif);">All Projects</h2>
-
-    <div class="stagger grid gap-6">
-      {projects.map((project) => {
-        const Wrapper = project.slug ? 'a' : 'div';
-        return (
-          <a href={project.slug ? `/projects/${project.slug}` : undefined}
-             class:list={[
-               "reveal card-lift shimmer-border block border border-[var(--color-rule)] rounded-lg overflow-hidden",
-               project.slug && "cursor-pointer"
-             ]}>
-            <div class={`h-1.5 bg-gradient-to-r ${project.gradient}`}></div>
-            <div class="p-5">
-              <div class="flex items-start justify-between mb-1.5">
-                <h3 class="text-lg font-semibold" style="font-family: var(--font-serif);">{project.title}</h3>
-                <span class="text-xs text-[var(--color-faint)] whitespace-nowrap ml-4">{project.date}</span>
-              </div>
-              <div class="flex gap-2 flex-wrap mb-3">
-                {project.badges.map(badge => (
-                  <span class={`text-xs px-2 py-0.5 rounded font-medium ${
-                    badge === 'Active' ? 'bg-green-50 text-green-700' :
-                    badge.includes('Place') || badge.includes('36/50') ? 'bg-[var(--color-gold-soft)] text-[var(--color-warm)]' :
-                    badge.includes('Paper') || badge.includes('SeCrypt') ? 'bg-amber-50 text-amber-700' :
-                    'bg-[var(--color-accent-soft)] text-[var(--color-accent)]'
-                  }`}>{badge}</span>
-                ))}
-              </div>
-              <p class="text-sm text-[var(--color-muted)] mb-3">{project.description}</p>
-              <div class="flex gap-2 flex-wrap">
-                {project.tags.map(tag => (
-                  <span class="text-xs px-2 py-0.5 bg-[var(--color-accent-soft)] text-[var(--color-accent)] rounded">{tag}</span>
-                ))}
-              </div>
-              {project.github && (
-                <div class="mt-3">
-                  <span class="text-xs text-[var(--color-accent)] hover:text-[var(--color-gold)] transition-colors">View on GitHub →</span>
-                </div>
-              )}
-            </div>
-          </a>
-        );
-      })}
+  <!-- Header -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-grid bg-grid-fade opacity-40 pointer-events-none"></div>
+    <div class="container-wide pt-20 pb-14 relative">
+      <p class="eyebrow reveal mb-5">Selected work · 2025 — 2026</p>
+      <h1 class="reveal text-5xl md:text-7xl font-light tracking-[-0.035em] leading-[0.95] mb-6" style="font-family: var(--font-serif); color: var(--color-accent);">
+        Projects.
+      </h1>
+      <p class="reveal text-[var(--color-muted)] leading-relaxed max-w-[640px] text-lg">
+        Competition entries, research probes, internship work, and side projects — from Kaggle math olympiads to retrieval architecture studies to ZK-backed KYC pipelines.
+      </p>
     </div>
   </section>
+
+  <div class="container-wide"><div class="h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/20 to-transparent"></div></div>
+
+  <!-- ============ FEATURED ============ -->
+  <section class="container-wide pt-14 pb-12">
+    <p class="section-label mb-5 reveal">Featured</p>
+    <div class="stagger grid grid-cols-1 md:grid-cols-2 gap-5">
+      {featured.map((project) => (
+        <a href={project.slug ? `/projects/${project.slug}` : '#'}
+           class="reveal card shimmer-border overflow-hidden block group">
+          <div class={`h-1.5 bg-gradient-to-r ${project.gradient}`}></div>
+          <div class="p-7 md:p-9">
+            <div class="flex items-start justify-between mb-3 flex-wrap gap-2">
+              <span class="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--color-gold-deep)] font-bold">{project.kind}</span>
+              <span class="font-mono text-[11px] text-[var(--color-faint)]">{project.date}</span>
+            </div>
+            <h2 class="text-3xl font-semibold mb-2" style="font-family: var(--font-serif); color: var(--color-accent);">{project.title}</h2>
+            <p class="text-sm text-[var(--color-muted)] uppercase tracking-wider mb-4">{project.subtitle}</p>
+            <p class="text-[var(--color-ink)] leading-relaxed mb-5">{project.description}</p>
+            <div class="flex gap-2 flex-wrap mb-5">
+              {project.badges.map(b => <span class="pill pill-gold">{b}</span>)}
+            </div>
+            <div class="flex gap-2 flex-wrap mb-5">
+              {project.tags.map(t => <span class="pill pill-accent">{t}</span>)}
+            </div>
+            <div class="flex items-center gap-2 text-sm font-medium text-[var(--color-accent)]">
+              <span>Read the case study</span>
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ============ ALL PROJECTS ============ -->
+  <section class="container-wide pb-20">
+    <p class="section-label mb-5 reveal">Everything else</p>
+    <div class="stagger grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {rest.map((project) => (
+        <a href={project.slug ? `/projects/${project.slug}` : '#'}
+           class:list={[
+             "reveal card shimmer-border block overflow-hidden",
+             project.slug && "cursor-pointer"
+           ]}>
+          <div class={`h-1.5 bg-gradient-to-r ${project.gradient}`}></div>
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-2 flex-wrap gap-1">
+              <span class="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--color-gold-deep)] font-bold">{project.kind}</span>
+              <span class="font-mono text-[11px] text-[var(--color-faint)]">{project.date}</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-1" style="font-family: var(--font-serif); color: var(--color-accent);">{project.title}</h3>
+            <p class="text-xs text-[var(--color-muted)] uppercase tracking-wider mb-3">{project.subtitle}</p>
+            <p class="text-sm text-[var(--color-muted)] leading-relaxed mb-4">{project.description}</p>
+            <div class="flex gap-1.5 flex-wrap mb-3">
+              {project.badges.slice(0, 2).map(b => <span class="pill pill-gold">{b}</span>)}
+            </div>
+            <div class="flex gap-1.5 flex-wrap">
+              {project.tags.slice(0, 4).map(t => <span class="pill pill-accent">{t}</span>)}
+            </div>
+            {project.github && (
+              <div class="mt-4 pt-3 border-t border-[var(--color-rule)]">
+                <span class="text-xs text-[var(--color-accent)] hover:text-[var(--color-gold-deep)] transition-colors">
+                  {project.slug ? 'Case study →' : 'GitHub →'}
+                </span>
+              </div>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
 </Base>

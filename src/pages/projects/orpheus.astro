@@ -1,0 +1,247 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Project Orpheus — Mesa-Optimization Probe | Aryan D Haritsa"
+      description="Do small transformers implement gradient descent internally? A mechanistic interpretability probe using TransformerLens, activation patching, and causal tracing on in-context linear regression.">
+
+  <!-- Back -->
+  <div class="container-prose pt-6">
+    <a href="/projects" class="inline-flex items-center gap-1.5 text-sm text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors magnetic">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      Back to projects
+    </a>
+  </div>
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-grid bg-grid-fade opacity-40 pointer-events-none"></div>
+    <div class="container-wide pt-10 pb-14 relative">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+        <div class="md:col-span-8">
+          <p class="eyebrow reveal mb-5">Case study · Active · Apr 2026 →</p>
+          <h1 class="reveal text-5xl md:text-7xl lg:text-[6.5rem] font-light tracking-[-0.035em] leading-[0.95] mb-6" style="font-family: var(--font-serif); color: var(--color-accent);">
+            Orpheus
+          </h1>
+          <p class="reveal text-xl md:text-2xl text-[var(--color-muted)] italic leading-snug max-w-2xl" style="font-family: var(--font-serif);">
+            A mesa-optimization probe — looking down into the forward pass.
+          </p>
+          <p class="reveal text-base md:text-lg text-[var(--color-muted)] leading-relaxed mt-5 max-w-[620px]">
+            Do small transformers trained on in-context linear regression <em>implement gradient descent</em> internally during their forward pass? If so, where in the network does the optimization emerge, and what computational signatures distinguish a mesa-optimizer from a lookup table?
+          </p>
+        </div>
+        <div class="md:col-span-4">
+          <div class="reveal-right card shimmer-border">
+            <div class="accent-bar"></div>
+            <div class="p-6">
+              <p class="section-label mb-3">Probe spec</p>
+              <dl class="space-y-2.5 text-sm">
+                <div class="flex justify-between gap-4"><dt class="text-[var(--color-muted)]">Task</dt><dd class="font-mono">ICL linear regression</dd></div>
+                <div class="flex justify-between gap-4"><dt class="text-[var(--color-muted)]">Depth</dt><dd class="font-mono">1, 2, 4 layers</dd></div>
+                <div class="flex justify-between gap-4"><dt class="text-[var(--color-muted)]">Harness</dt><dd class="font-mono">TransformerLens</dd></div>
+                <div class="flex justify-between gap-4"><dt class="text-[var(--color-muted)]">Method</dt><dd class="font-mono">Activation patching</dd></div>
+                <div class="flex justify-between gap-4"><dt class="text-[var(--color-muted)]">Baselines</dt><dd class="font-mono">OLS · Ridge</dd></div>
+                <div class="flex justify-between gap-4"><dt class="text-[var(--color-muted)]">Status</dt><dd><span class="pill pill-gold">Active</span></dd></div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kinetic visual — gradient descent strip -->
+      <div class="reveal mt-14 card overflow-hidden">
+        <div class="accent-bar"></div>
+        <div class="p-6 md:p-8 bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-surface-2)]">
+          <p class="section-label mb-5">A rough conceptual sketch</p>
+          <svg viewBox="0 0 800 160" class="w-full h-auto">
+            <!-- loss surface (curve) -->
+            <path d="M20 140 Q 200 20, 400 80 T 780 140" stroke="#0F2A4A" stroke-width="1.5" fill="none" opacity="0.4"/>
+            <!-- gradient descent steps -->
+            <circle cx="90" cy="118" r="5" fill="#B4892A"/>
+            <circle cx="180" cy="70" r="5" fill="#B4892A"/>
+            <circle cx="290" cy="60" r="5" fill="#B4892A"/>
+            <circle cx="400" cy="80" r="5" fill="#B4892A"/>
+            <path d="M90 118 L180 70 L290 60 L400 80" stroke="#B4892A" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+            <!-- arrow to attention heads -->
+            <text x="20" y="20" font-family="var(--font-mono)" font-size="10" fill="#595959">explicit gradient descent on a loss</text>
+            <text x="420" y="50" font-family="var(--font-mono)" font-size="10" fill="#8A6414" font-style="italic">≈ what the forward pass may implicitly do?</text>
+            <!-- transformer block -->
+            <rect x="500" y="50" width="260" height="70" fill="none" stroke="#0F2A4A" stroke-width="1" rx="6"/>
+            <text x="630" y="80" font-family="var(--font-serif)" font-size="13" fill="#0F2A4A" text-anchor="middle">Attention + MLP</text>
+            <text x="630" y="100" font-family="var(--font-mono)" font-size="9" fill="#595959" text-anchor="middle">layer ℓ · head h</text>
+            <line x1="420" y1="80" x2="500" y2="85" stroke="#B4892A" stroke-width="1.2" marker-end="url(#arrow-o)"/>
+            <defs>
+              <marker id="arrow-o" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#B4892A"/>
+              </marker>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-prose"><div class="h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/20 to-transparent"></div></div>
+
+  <!-- WHY IT MATTERS -->
+  <section class="container-prose py-16">
+    <div class="reveal">
+      <h2 class="section-heading">Why this question</h2>
+    </div>
+    <div class="narrative reveal">
+      <p>
+        In-context learning — the phenomenon where a pretrained transformer, given a few examples in its prompt, appears to <em>fit</em> a new task on the fly — is one of the most peculiar empirical facts about large language models. It looks like learning. It isn't training. Something in the forward pass is doing the work that gradient descent would do offline.
+      </p>
+      <p>
+        In 2023, von Oswald et al. showed constructively that a linear self-attention layer can implement one step of gradient descent on a least-squares regression problem. That is a <strong>proof of possibility</strong>. It doesn't tell us whether any network, trained on a specific task distribution, <em>actually</em> does this — versus simply storing an enormous lookup table and retrieving from it.
+      </p>
+      <p>
+        Orpheus is the probe for that distinction. The stakes aren't academic. If models learn to run optimization loops internally, their capabilities scale in a qualitatively different way than memorization-based models, and safety properties (goal misgeneralization, deceptive alignment) need to be argued at the level of <em>the thing that is being optimized</em>, not the training loss.
+      </p>
+    </div>
+  </section>
+
+  <!-- THREE-PHASE METHODOLOGY -->
+  <section class="container-prose pb-10">
+    <div class="reveal mb-6">
+      <h2 class="section-heading">Three-phase methodology</h2>
+    </div>
+
+    <div class="stagger space-y-5">
+      <div class="reveal card p-6 md:p-7 shimmer-border">
+        <div class="flex items-start gap-4">
+          <div class="w-9 h-9 rounded-full bg-[var(--color-accent)] text-white text-sm font-bold flex items-center justify-center flex-shrink-0 mt-0.5" style="font-family: var(--font-serif);">1</div>
+          <div>
+            <p class="text-lg font-semibold text-[var(--color-ink)]" style="font-family: var(--font-serif);">Train & baseline</p>
+            <p class="text-sm text-[var(--color-muted)] mt-2 leading-relaxed">
+              Train small transformers (1, 2, 4 layers) on synthetic in-context linear regression following von Oswald et al.'s experimental setup. Establish baseline performance against ordinary least squares and ridge regression. Vary model depth, context length, and task distribution spread.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal card p-6 md:p-7 shimmer-border">
+        <div class="flex items-start gap-4">
+          <div class="w-9 h-9 rounded-full bg-[var(--color-accent)] text-white text-sm font-bold flex items-center justify-center flex-shrink-0 mt-0.5" style="font-family: var(--font-serif);">2</div>
+          <div>
+            <p class="text-lg font-semibold text-[var(--color-ink)]" style="font-family: var(--font-serif);">Activation analysis</p>
+            <p class="text-sm text-[var(--color-muted)] mt-2 leading-relaxed">
+              Use TransformerLens to extract activations at every layer. Apply activation patching and causal tracing to identify which attention heads and MLPs are causally responsible for the in-context prediction. Compare activation trajectories against the weight updates gradient descent would produce.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal card p-6 md:p-7 shimmer-border">
+        <div class="flex items-start gap-4">
+          <div class="w-9 h-9 rounded-full bg-[var(--color-accent)] text-white text-sm font-bold flex items-center justify-center flex-shrink-0 mt-0.5" style="font-family: var(--font-serif);">3</div>
+          <div>
+            <p class="text-lg font-semibold text-[var(--color-ink)]" style="font-family: var(--font-serif);">Mesa-optimizer classification</p>
+            <p class="text-sm text-[var(--color-muted)] mt-2 leading-relaxed">
+              Develop quantitative criteria to distinguish mesa-optimizers from lookup tables. Test OOD generalization to function classes unseen at training, following the Garg et al. protocol. Ablation studies to identify the minimal circuit required for the optimization behavior.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-prose"><div class="h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/20 to-transparent"></div></div>
+
+  <!-- WHAT COUNTS AS AN ANSWER -->
+  <section class="container-prose py-16">
+    <div class="reveal mb-6">
+      <h2 class="section-heading">What counts as an answer</h2>
+    </div>
+    <div class="narrative reveal">
+      <p>
+        A result of <em>"the transformer implements gradient descent"</em> is too soft to be falsifiable on its own. Orpheus commits in advance to the signatures that would count as evidence one way or the other:
+      </p>
+    </div>
+
+    <div class="stagger mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="reveal callout p-5">
+        <span class="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--color-gold-deep)] font-bold">Evidence for</span>
+        <p class="font-semibold mt-2" style="font-family: var(--font-serif);">Activations evolve step-by-step along the descent direction.</p>
+        <p class="text-sm text-[var(--color-muted)] mt-2">The layer-by-layer residual stream should trace out a trajectory in parameter space that matches the explicit gradient-descent iterate — not just its endpoint.</p>
+      </div>
+      <div class="reveal callout p-5">
+        <span class="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--color-gold-deep)] font-bold">Evidence for</span>
+        <p class="font-semibold mt-2" style="font-family: var(--font-serif);">OOD generalization to unseen function families.</p>
+        <p class="text-sm text-[var(--color-muted)] mt-2">If the transformer solves function classes it was never trained on (e.g. sparse linear, then shallow neural), it has encoded the optimization procedure — not the answer.</p>
+      </div>
+      <div class="reveal callout p-5">
+        <span class="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--color-gold-deep)] font-bold">Evidence against</span>
+        <p class="font-semibold mt-2" style="font-family: var(--font-serif);">Accuracy collapses outside the training task distribution.</p>
+        <p class="text-sm text-[var(--color-muted)] mt-2">A lookup-table model will memorize the training distribution well and fail sharply outside. Orpheus checks this by design.</p>
+      </div>
+      <div class="reveal callout p-5">
+        <span class="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--color-gold-deep)] font-bold">Evidence against</span>
+        <p class="font-semibold mt-2" style="font-family: var(--font-serif);">Ablating any single head destroys the behavior.</p>
+        <p class="text-sm text-[var(--color-muted)] mt-2">A genuine algorithmic circuit has redundancy and modularity. A brittle single-path is a signature of memorization, not optimization.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY 'ORPHEUS' -->
+  <section class="container-prose pb-10">
+    <div class="reveal mb-6">
+      <h2 class="section-heading">Why the name</h2>
+    </div>
+    <div class="narrative reveal">
+      <p>
+        Orpheus — the poet who walked into the underworld to retrieve what he could not see. Mechanistic interpretability is the same move: you know <em>something</em> is there, you walk in, and the rule is that if you look too directly, too early, at too coarse a resolution, you lose it. The tools matter. The patience matters. The willingness to accept an answer of <em>"not yet"</em> matters.
+      </p>
+    </div>
+  </section>
+
+  <div class="container-prose"><div class="h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/20 to-transparent"></div></div>
+
+  <!-- REFERENCES -->
+  <section class="container-prose py-16">
+    <div class="reveal mb-6">
+      <h2 class="section-heading">Key references</h2>
+    </div>
+    <ul class="reveal space-y-3 text-sm text-[var(--color-muted)]">
+      <li class="flex gap-3">
+        <span class="text-[var(--color-gold)] font-mono text-xs flex-shrink-0 mt-1">[1]</span>
+        <span><strong class="text-[var(--color-ink)]">von Oswald et al. (2023).</strong> <em>Transformers Learn In-Context by Gradient Descent.</em> ICML. Constructive proof that linear self-attention can perform one GD step on a least-squares objective.</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[var(--color-gold)] font-mono text-xs flex-shrink-0 mt-1">[2]</span>
+        <span><strong class="text-[var(--color-ink)]">Garg et al. (2022).</strong> <em>What Can Transformers Learn In-Context? A Case Study of Simple Function Classes.</em> NeurIPS. The OOD evaluation protocol — train on one function class, test on another.</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[var(--color-gold)] font-mono text-xs flex-shrink-0 mt-1">[3]</span>
+        <span><strong class="text-[var(--color-ink)]">Hubinger et al. (2019).</strong> <em>Risks from Learned Optimization in Advanced Machine Learning Systems.</em> The original framing of the mesa-optimizer problem.</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[var(--color-gold)] font-mono text-xs flex-shrink-0 mt-1">[4]</span>
+        <span><strong class="text-[var(--color-ink)]">Olsson et al. (2022).</strong> <em>In-context Learning and Induction Heads.</em> Anthropic. The methodological precedent for mechanistic analysis of ICL.</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- STACK -->
+  <section class="container-prose pb-10">
+    <div class="reveal mb-5"><h2 class="section-heading">Stack</h2></div>
+    <div class="reveal flex gap-2.5 flex-wrap">
+      {['PyTorch', 'TransformerLens', 'Causal tracing', 'Activation patching', 'Einops', 'Jupyter · lab notebook', 'Matplotlib · plotly', 'Weights & Biases'].map(t => (
+        <span class="pill pill-accent">{t}</span>
+      ))}
+    </div>
+  </section>
+
+  <!-- NAV -->
+  <section class="container-prose py-16 flex flex-wrap gap-3 items-center justify-between">
+    <a href="/projects/vitruvius" class="inline-flex items-center gap-1.5 text-sm text-[var(--color-accent)] font-medium ink-link">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      Previous: Vitruvius
+    </a>
+    <a href="/projects/ramanujan" class="inline-flex items-center gap-1.5 text-sm text-[var(--color-accent)] font-medium ink-link">
+      Next: Ramanujan
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+    </a>
+  </section>
+
+</Base>

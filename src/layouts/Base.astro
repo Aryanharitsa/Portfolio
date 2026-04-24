@@ -26,53 +26,87 @@ const navLinks = [
   <meta name="description" content={description} />
   <title>{title}</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="theme-color" content="#F6F3EC" />
 </head>
 <body class="min-h-screen relative">
 
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Custom cursor -->
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+  <!-- Constellation background canvas -->
+  <canvas class="bg-constellation" id="bgCanvas" aria-hidden="true"></canvas>
+
   <!-- Floating decorative arcs -->
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-    <svg class="arc-float-1 absolute -top-24 right-[10%] w-[700px] h-[700px] opacity-[0.04]" viewBox="0 0 700 700" fill="none">
-      <circle cx="350" cy="350" r="300" stroke="#C49B2A" stroke-width="0.7"/>
-      <circle cx="350" cy="350" r="240" stroke="#1A365D" stroke-width="0.4"/>
-      <path d="M80 350 Q350 80 620 350" stroke="#C49B2A" stroke-width="0.5" fill="none"/>
+    <svg class="arc-float-1 absolute -top-24 right-[8%] w-[760px] h-[760px] opacity-[0.05]" viewBox="0 0 760 760" fill="none">
+      <circle cx="380" cy="380" r="340" stroke="#B4892A" stroke-width="0.6"/>
+      <circle cx="380" cy="380" r="260" stroke="#0F2A4A" stroke-width="0.4"/>
+      <circle cx="380" cy="380" r="180" stroke="#B4892A" stroke-width="0.35"/>
+      <path d="M80 380 Q380 80 680 380" stroke="#B4892A" stroke-width="0.5" fill="none"/>
+      <path d="M80 380 Q380 680 680 380" stroke="#0F2A4A" stroke-width="0.35" fill="none"/>
     </svg>
-    <svg class="arc-float-2 absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] opacity-[0.035]" viewBox="0 0 600 600" fill="none">
-      <circle cx="300" cy="300" r="260" stroke="#1A1A1A" stroke-width="0.5"/>
-      <path d="M40 300 Q300 40 560 300" stroke="#8B7355" stroke-width="0.4" fill="none"/>
+    <svg class="arc-float-2 absolute bottom-[-10%] left-[-6%] w-[620px] h-[620px] opacity-[0.04]" viewBox="0 0 620 620" fill="none">
+      <circle cx="310" cy="310" r="270" stroke="#101E33" stroke-width="0.5"/>
+      <path d="M40 310 Q310 40 580 310" stroke="#8B6B3A" stroke-width="0.4" fill="none"/>
+      <line x1="10" y1="310" x2="610" y2="310" stroke="#0F2A4A" stroke-width="0.2" stroke-dasharray="3 6"/>
     </svg>
-    <svg class="arc-float-3 absolute top-[45%] right-[-3%] w-[450px] h-[450px] opacity-[0.03]" viewBox="0 0 450 450" fill="none">
-      <ellipse cx="225" cy="225" rx="200" ry="140" stroke="#1A365D" stroke-width="0.4"/>
+    <svg class="arc-float-3 absolute top-[42%] right-[-3%] w-[480px] h-[480px] opacity-[0.035]" viewBox="0 0 480 480" fill="none">
+      <ellipse cx="240" cy="240" rx="220" ry="150" stroke="#0F2A4A" stroke-width="0.4"/>
+      <ellipse cx="240" cy="240" rx="180" ry="100" stroke="#B4892A" stroke-width="0.35"/>
     </svg>
   </div>
 
   <!-- Header -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-[var(--color-bg)]/80 backdrop-blur-md border-b border-[var(--color-rule)]/60">
+  <header class="fixed top-0 left-0 right-0 z-50 bg-[var(--color-bg)]/75 backdrop-blur-xl border-b border-[var(--color-rule)]/60">
     <nav class="container-wide flex items-center justify-between py-4">
-      <a href="/" class="text-[var(--color-accent)] font-semibold text-xl tracking-tight magnetic" style="font-family: var(--font-serif);">
-        Aryan<span class="text-[var(--color-gold)]">.</span>
+      <a href="/" class="flex items-center gap-2 text-[var(--color-accent)] font-semibold text-xl tracking-tight magnetic" style="font-family: var(--font-serif);">
+        <span class="inline-block w-6 h-6 rounded-full border border-[var(--color-accent)]/40 flex items-center justify-center" aria-hidden="true">
+          <span class="block w-1.5 h-1.5 rounded-full bg-[var(--color-gold)] drift-float"></span>
+        </span>
+        <span>Aryan<span class="text-[var(--color-gold)]">.</span></span>
       </a>
-      <div class="flex items-center gap-8 text-[13px]">
+      <div class="hidden md:flex items-center gap-7 text-[13px]">
         {navLinks.map(link => (
           <a
             href={link.href}
+            data-nav
             class:list={[
-              "transition-all duration-300 hover:text-[var(--color-accent)]",
+              "relative transition-all duration-300 py-1",
               currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
                 ? "text-[var(--color-accent)] font-semibold"
-                : "text-[var(--color-muted)] font-medium"
+                : "text-[var(--color-muted)] font-medium hover:text-[var(--color-accent)]"
             ]}
           >
             {link.label}
+            {(currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))) && (
+              <span class="absolute left-0 right-0 -bottom-1 h-px bg-gradient-to-r from-transparent via-[var(--color-gold)] to-transparent"></span>
+            )}
           </a>
         ))}
-        <a href="/cv" class="ml-2 px-4 py-1.5 bg-[var(--color-accent)] text-white text-xs font-medium rounded-full hover:bg-[var(--color-accent-hover)] transition-all duration-300">
-          Resume ↓
+        <a href="/cv" class="ml-2 btn-primary magnetic !py-2 !px-4 !text-xs">
+          Resume
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
         </a>
       </div>
+      <button class="md:hidden text-[var(--color-accent)]" id="mobileToggle" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
     </nav>
+    <!-- Mobile menu (hidden by default) -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-[var(--color-rule)] bg-[var(--color-bg)]">
+      <div class="container-wide py-4 flex flex-col gap-3 text-sm">
+        {navLinks.map(link => (
+          <a href={link.href} class="text-[var(--color-muted)] hover:text-[var(--color-accent)] py-1">{link.label}</a>
+        ))}
+      </div>
+    </div>
   </header>
 
-  <!-- Spacer for fixed header -->
+  <!-- Spacer -->
   <div class="h-16"></div>
 
   <!-- Main -->
@@ -81,51 +115,281 @@ const navLinks = [
   </main>
 
   <!-- Footer -->
-  <footer class="relative z-10 mt-24 border-t border-[var(--color-rule)]">
-    <div class="container-wide py-12">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
-        <div>
-          <p class="font-semibold text-[var(--color-accent)] mb-2" style="font-family: var(--font-serif);">Aryan D Haritsa</p>
-          <p class="text-[var(--color-muted)]">AI/ML Researcher & Engineer<br/>PES University, Bengaluru</p>
+  <footer class="relative z-10 mt-24 border-t border-[var(--color-rule)] bg-[var(--color-bg-deep)]/60">
+    <div class="container-wide py-14">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 text-sm">
+        <div class="md:col-span-5">
+          <p class="font-semibold text-[var(--color-accent)] mb-2 text-lg" style="font-family: var(--font-serif);">Aryan D Haritsa<span class="text-[var(--color-gold)]">.</span></p>
+          <p class="text-[var(--color-muted)] max-w-sm leading-relaxed">
+            Final-year CS at PES University. Researching mechanistic interpretability and alternative encoder architectures. Building systems that have to work under real constraints.
+          </p>
+          <p class="text-xs text-[var(--color-faint)] mt-3">Bengaluru · IST (UTC+5:30)</p>
         </div>
-        <div>
+        <div class="md:col-span-3">
           <p class="section-label mb-3">Connect</p>
           <div class="flex flex-col gap-1.5">
-            <a href="https://github.com/Aryanharitsa" target="_blank" class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">GitHub</a>
-            <a href="https://linkedin.com/in/aryan-haritsa-60292925b" target="_blank" class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">LinkedIn</a>
-            <a href="mailto:aryanharitsa@gmail.com" class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">aryanharitsa@gmail.com</a>
+            <a href="https://github.com/Aryanharitsa" target="_blank" class="ink-link">GitHub</a>
+            <a href="https://linkedin.com/in/aryan-haritsa-60292925b" target="_blank" class="ink-link">LinkedIn</a>
+            <a href="mailto:aryanharitsa@gmail.com" class="ink-link">Email</a>
           </div>
         </div>
-        <div>
+        <div class="md:col-span-4">
           <p class="section-label mb-3">Navigate</p>
-          <div class="flex flex-col gap-1.5">
+          <div class="grid grid-cols-2 gap-1.5">
             {navLinks.map(link => (
               <a href={link.href} class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">{link.label}</a>
             ))}
+            <a href="/projects/ramanujan" class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">Ramanujan</a>
+            <a href="/projects/vitruvius" class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">Vitruvius</a>
+            <a href="/projects/orpheus" class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">Orpheus</a>
+            <a href="/projects/titan" class="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">TITAN</a>
           </div>
         </div>
       </div>
-      <div class="mt-10 pt-6 border-t border-[var(--color-rule)] text-xs text-[var(--color-faint)]">
-        <p>&copy; 2026 Aryan D Haritsa &middot; Built with Astro + Tailwind</p>
+      <div class="mt-10 pt-6 border-t border-[var(--color-rule)] flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs text-[var(--color-faint)]">
+        <p>© 2026 Aryan D Haritsa. Built with Astro + Tailwind. Seed <span class="font-mono">1729</span>.</p>
+        <p class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+          Available for research collaborations
+        </p>
       </div>
     </div>
   </footer>
 
-  <!-- Scroll observer -->
-  <script>
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+  <!-- ============ SCRIPTS ============ -->
+  <script is:inline>
+    // Scroll progress + intersection reveal
+    (function () {
+      const prog = document.getElementById('scrollProgress');
+      const onScroll = () => {
+        const h = document.documentElement;
+        const pct = (h.scrollTop / Math.max(h.scrollHeight - h.clientHeight, 1)) * 100;
+        if (prog) prog.style.width = pct + '%';
+      };
+      document.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
           }
         });
-      },
-      { threshold: 0.08, rootMargin: '0px 0px -60px 0px' }
-    );
-    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .text-reveal').forEach((el) => {
-      observer.observe(el);
-    });
+      }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .text-reveal, .split-word, .pareto-frontier').forEach((el) => io.observe(el));
+
+      // Mobile toggle
+      const mt = document.getElementById('mobileToggle');
+      const mm = document.getElementById('mobileMenu');
+      if (mt && mm) mt.addEventListener('click', () => mm.classList.toggle('hidden'));
+
+      // Magnetic buttons
+      const isFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (isFine) {
+        document.querySelectorAll('.magnetic').forEach((el) => {
+          const strength = 0.25;
+          el.addEventListener('mousemove', (e) => {
+            const r = el.getBoundingClientRect();
+            const x = e.clientX - r.left - r.width / 2;
+            const y = e.clientY - r.top - r.height / 2;
+            el.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+          });
+          el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+        });
+      }
+
+      // Custom cursor
+      if (isFine) {
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+        let rx = 0, ry = 0, dx = 0, dy = 0, tx = 0, ty = 0;
+        document.addEventListener('mousemove', (e) => {
+          tx = e.clientX; ty = e.clientY;
+          if (dot) dot.style.transform = `translate3d(${tx - 2.5}px, ${ty - 2.5}px, 0)`;
+        });
+        const loop = () => {
+          rx += (tx - rx) * 0.16;
+          ry += (ty - ry) * 0.16;
+          if (ring) ring.style.transform = `translate3d(${rx - 17}px, ${ry - 17}px, 0)`;
+          requestAnimationFrame(loop);
+        };
+        loop();
+        const hoverables = 'a, button, .magnetic, .card, .card-lift, .card-flat, [data-cursor-hover]';
+        document.querySelectorAll(hoverables).forEach((el) => {
+          el.addEventListener('mouseenter', () => ring && ring.classList.add('is-hover'));
+          el.addEventListener('mouseleave', () => ring && ring.classList.remove('is-hover'));
+        });
+      }
+
+      // Constellation canvas
+      const canvas = document.getElementById('bgCanvas');
+      if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const ctx = canvas.getContext('2d');
+        let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+        let points = [];
+        const ACCENT = [15, 42, 74];
+        const GOLD = [180, 137, 42];
+        const mouse = { x: -9999, y: -9999 };
+
+        const resize = () => {
+          w = canvas.width = Math.floor(window.innerWidth * dpr);
+          h = canvas.height = Math.floor(window.innerHeight * dpr);
+          canvas.style.width = window.innerWidth + 'px';
+          canvas.style.height = window.innerHeight + 'px';
+          const density = Math.min(Math.max(Math.floor((window.innerWidth * window.innerHeight) / 16000), 30), 90);
+          points = Array.from({ length: density }, () => ({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            vx: (Math.random() - 0.5) * 0.15 * dpr,
+            vy: (Math.random() - 0.5) * 0.15 * dpr,
+            g: Math.random() > 0.82, // gold accent
+          }));
+        };
+        window.addEventListener('resize', resize);
+        resize();
+
+        document.addEventListener('mousemove', (e) => {
+          mouse.x = e.clientX * dpr;
+          mouse.y = e.clientY * dpr;
+        });
+        document.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+        const LINK = 140 * dpr;
+        const MOUSE_LINK = 180 * dpr;
+
+        const draw = () => {
+          ctx.clearRect(0, 0, w, h);
+          // update
+          for (const p of points) {
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0 || p.x > w) p.vx *= -1;
+            if (p.y < 0 || p.y > h) p.vy *= -1;
+            // mouse attract
+            const mdx = p.x - mouse.x;
+            const mdy = p.y - mouse.y;
+            const md2 = mdx * mdx + mdy * mdy;
+            if (md2 < (MOUSE_LINK * MOUSE_LINK)) {
+              const md = Math.sqrt(md2);
+              const force = (1 - md / MOUSE_LINK) * 0.4;
+              p.x += (mdx / md) * force;
+              p.y += (mdy / md) * force;
+            }
+          }
+          // draw links
+          for (let i = 0; i < points.length; i++) {
+            for (let j = i + 1; j < points.length; j++) {
+              const a = points[i], b = points[j];
+              const dx = a.x - b.x, dy = a.y - b.y;
+              const d2 = dx * dx + dy * dy;
+              if (d2 < LINK * LINK) {
+                const d = Math.sqrt(d2);
+                const op = (1 - d / LINK) * 0.18;
+                const c = (a.g || b.g) ? GOLD : ACCENT;
+                ctx.strokeStyle = `rgba(${c[0]},${c[1]},${c[2]},${op})`;
+                ctx.lineWidth = 0.6 * dpr;
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.stroke();
+              }
+            }
+          }
+          // draw points
+          for (const p of points) {
+            const c = p.g ? GOLD : ACCENT;
+            ctx.fillStyle = `rgba(${c[0]},${c[1]},${c[2]},0.6)`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, (p.g ? 1.6 : 1.2) * dpr, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          // mouse→points faint link
+          if (mouse.x > -9000) {
+            for (const p of points) {
+              const dx = p.x - mouse.x, dy = p.y - mouse.y;
+              const d2 = dx * dx + dy * dy;
+              if (d2 < MOUSE_LINK * MOUSE_LINK) {
+                const d = Math.sqrt(d2);
+                const op = (1 - d / MOUSE_LINK) * 0.35;
+                ctx.strokeStyle = `rgba(180,137,42,${op})`;
+                ctx.lineWidth = 0.7 * dpr;
+                ctx.beginPath();
+                ctx.moveTo(mouse.x, mouse.y);
+                ctx.lineTo(p.x, p.y);
+                ctx.stroke();
+              }
+            }
+          }
+          requestAnimationFrame(draw);
+        };
+        requestAnimationFrame(draw);
+      }
+
+      // 1729 easter egg — Ramanujan taxicab number
+      (function () {
+        let buf = '';
+        document.addEventListener('keydown', (e) => {
+          if (e.key && e.key.length === 1) {
+            buf = (buf + e.key).slice(-4);
+            if (buf === '1729') {
+              document.documentElement.classList.toggle('taxi');
+              // briefly flash a note
+              const note = document.createElement('div');
+              note.textContent = '1729 — the taxicab number. Seed set.';
+              note.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#0F2A4A;color:#F6F3EC;padding:.75rem 1.2rem;border-radius:999px;font-family:var(--font-mono);font-size:.8rem;z-index:10000;box-shadow:0 12px 36px rgba(0,0,0,.25);letter-spacing:.02em;';
+              document.body.appendChild(note);
+              setTimeout(() => note.remove(), 2600);
+            }
+          }
+        });
+      })();
+
+      // Split-word letters wrapper — applies .char spans on elements with .split
+      document.querySelectorAll('.split').forEach((el) => {
+        const t = el.textContent || '';
+        el.innerHTML = '';
+        for (const ch of t) {
+          const s = document.createElement('span');
+          s.className = 'char';
+          s.textContent = ch === ' ' ? '\u00A0' : ch;
+          el.appendChild(s);
+        }
+      });
+
+      // Callout mouse-light
+      document.querySelectorAll('.callout').forEach((el) => {
+        el.addEventListener('mousemove', (e) => {
+          const r = el.getBoundingClientRect();
+          el.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+          el.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+        });
+      });
+
+      // Number counter (on reveal)
+      const counterIO = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const target = parseFloat(el.getAttribute('data-count') || '0');
+          const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+          const dur = 1400;
+          const start = performance.now();
+          const from = 0;
+          const step = (now) => {
+            const t = Math.min(1, (now - start) / dur);
+            const e = 1 - Math.pow(1 - t, 3);
+            const v = from + (target - from) * e;
+            el.textContent = v.toFixed(decimals);
+            if (t < 1) requestAnimationFrame(step);
+            else el.textContent = target.toFixed(decimals);
+          };
+          requestAnimationFrame(step);
+          counterIO.unobserve(el);
+        });
+      }, { threshold: 0.4 });
+      document.querySelectorAll('[data-count]').forEach((el) => counterIO.observe(el));
+    })();
   </script>
 </body>
 </html>
